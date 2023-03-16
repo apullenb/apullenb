@@ -36,7 +36,7 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_isocalendar: yes
-          output_action: none
+          output_action: commit
           delay: 120
           user: lowlighter
           plugins_errors_fatal: yes
@@ -49,7 +49,7 @@ jobs:
           base: ""
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
-          output_action: none
+          output_action: commit
           delay: 120
           user: lowlighter
           plugins_errors_fatal: yes
@@ -65,7 +65,7 @@ jobs:
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
             gnuplot
           plugin_languages_limit: 4
-          output_action: none
+          output_action: commit
           delay: 120
           user: lowlighter
           plugins_errors_fatal: yes
@@ -82,7 +82,7 @@ jobs:
             gnuplot
           plugin_languages_details: bytes-size, percentage
           plugin_languages_limit: 4
-          output_action: none
+          output_action: commit
           delay: 120
           user: lowlighter
           plugins_errors_fatal: yes
@@ -100,7 +100,7 @@ jobs:
           plugin_languages_sections: recently-used
           plugin_languages_details: bytes-size, percentage
           plugin_languages_limit: 4
-          output_action: none
+          output_action: commit
           delay: 120
           user: lowlighter
           plugins_errors_fatal: yes
@@ -133,21 +133,6 @@ jobs:
           plugin_activity_limit: 7
           plugin_activity_days: 0
           plugin_activity_filter: issue, pr, release, fork, review, ref/create
-          plugin_posts: yes
-          plugin_posts_source: dev.to
-          plugin_posts_descriptions: yes
-          plugin_posts_covers: yes
-          plugin_posts_limit: 2
-          plugin_rss: yes
-          plugin_rss_source: https://news.ycombinator.com/rss
-          plugin_rss_limit: 4
-          plugin_tweets: yes
-          plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
-          plugin_tweets_user: github
-          plugin_tweets_attachments: yes
-          plugin_tweets_limit: 2
-          plugin_topics: yes
-          plugin_topics_limit: 24
           plugin_isocalendar: yes
           plugin_languages: yes
           token: ${{ secrets.METRICS_TOKEN }}
