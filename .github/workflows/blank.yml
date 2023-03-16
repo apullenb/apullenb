@@ -38,7 +38,7 @@ jobs:
           plugin_isocalendar: yes
           output_action: commit
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📅 Isometric commit calendar - Full-year calendar
@@ -51,7 +51,7 @@ jobs:
           plugin_isocalendar_duration: full-year
           output_action: commit
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🈷️ Languages activity - Most used
@@ -67,7 +67,7 @@ jobs:
           plugin_languages_limit: 4
           output_action: commit
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🈷️ Languages activity - Most used (with details)
@@ -84,7 +84,7 @@ jobs:
           plugin_languages_limit: 4
           output_action: commit
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🈷️ Languages activity - Recently used
@@ -102,7 +102,7 @@ jobs:
           plugin_languages_limit: 4
           output_action: commit
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       
@@ -118,7 +118,7 @@ jobs:
           output_action: commit
           committer_branch: examples
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📒 Markdown template - Example with plugins configuration for embed use
@@ -139,7 +139,7 @@ jobs:
           output_action: commit
           committer_branch: examples
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📒 Markdown template - Example (pdf output)
@@ -160,5 +160,5 @@ jobs:
           output_action: commit
           committer_branch: examples
           delay: 120
-          user: lowlighter
+          user: apullenb
           plugins_errors_fatal: yes
