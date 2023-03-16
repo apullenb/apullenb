@@ -20,32 +20,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
-      
-      - uses: lowlighter/metrics@latest
-        with:
-          filename: metrics.plugin.devto.svg
-          token: NOT_NEEDED
-          base: ""
-          plugin_posts: yes
-          plugin_posts_limit: 9
-          plugin_posts_source: dev.to
-          plugin_posts_user: apullenb
-          
-      - name: 🏆 Achievements - Compact display
-        uses: lowlighter/metrics@latest
-        with:
-          filename: metrics.plugin.achievements.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_achievements_threshold: X
-          output_action: commit
-          delay: 120
-          user: apullenb
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-          
+               
       - name: 📰 Recent activity - Recent activity
         uses: lowlighter/metrics@latest
         with:
@@ -137,31 +112,4 @@ jobs:
           user: apullenb
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-          
-      - name: 🧑‍🤝‍🧑 People
-        uses: lowlighter/metrics@latest
-        with:
-          filename: metrics.plugin.people.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_people: yes
-          plugin_people_types: followers, following
-          output_action: commit
-          delay: 120
-          user: apullenb
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-          
-      - name: 🌟 Recently starred repositories - Recently starred
-        uses: lowlighter/metrics@latest
-        with:
-          filename: metrics.plugin.stars.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_stars: yes
-          plugin_stars_limit: 3
-          output_action: commit
-          delay: 120
-          user: apullenb
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
+
