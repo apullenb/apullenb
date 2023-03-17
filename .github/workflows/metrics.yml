@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   # Schedule updates (each hour)
   schedule:
-    - cron: "30 * * * 1-5"
+    - cron: "30 * * * 1"
   workflow_call:
     secrets:
       METRICS_TOKEN:
