@@ -29,8 +29,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#e525435</div>
-                                        <div class="message">python day 1</div>
+                                        <div class="sha">#a5f41f7</div>
+                                        <div class="message">nested lists</div>
                                     </div>
                                 </div>
                             </section>
@@ -49,8 +49,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#c518747</div>
-                                        <div class="message">python day 1</div>
+                                        <div class="sha">#1680f7e</div>
+                                        <div class="message">for loop assignment</div>
                                     </div>
                                 </div>
                             </section>
@@ -63,14 +63,14 @@
                                     </svg>
                                     <div class="content">
                                         Pushed 1 commit in
-                                        <span class="repo">apullenb/bored</span>
+                                        <span class="repo">apullenb/coding-dojo-assignments</span>
                                     </div>
                                 </div>
                                 <div class="details">
-                                    <div>on branch <span class="code">main</span></div>
+                                    <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#39d7d26</div>
-                                        <div class="message">apply mobile styles</div>
+                                        <div class="sha">#b826422</div>
+                                        <div class="message">for loop assignment</div>
                                     </div>
                                 </div>
                             </section>
@@ -83,14 +83,14 @@
                                     </svg>
                                     <div class="content">
                                         Pushed 1 commit in
-                                        <span class="repo">apullenb/bored</span>
+                                        <span class="repo">apullenb/coding-dojo-assignments</span>
                                     </div>
                                 </div>
                                 <div class="details">
-                                    <div>on branch <span class="code">gh-pages</span></div>
+                                    <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#dd5c8b7</div>
-                                        <div class="message">Updates</div>
+                                        <div class="sha">#10705ed</div>
+                                        <div class="message">python day 2</div>
                                     </div>
                                 </div>
                             </section>
@@ -103,14 +103,14 @@
                                     </svg>
                                     <div class="content">
                                         Pushed 1 commit in
-                                        <span class="repo">apullenb/bored</span>
+                                        <span class="repo">apullenb/coding-dojo-assignments</span>
                                     </div>
                                 </div>
                                 <div class="details">
-                                    <div>on branch <span class="code">gh-pages</span></div>
+                                    <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#a966486</div>
-                                        <div class="message">Updates</div>
+                                        <div class="sha">#4cc49b2</div>
+                                        <div class="message">algorithms</div>
                                     </div>
                                 </div>
                             </section>
@@ -123,14 +123,14 @@
                                     </svg>
                                     <div class="content">
                                         Pushed 1 commit in
-                                        <span class="repo">apullenb/bored</span>
+                                        <span class="repo">apullenb/coding-dojo-assignments</span>
                                     </div>
                                 </div>
                                 <div class="details">
-                                    <div>on branch <span class="code">gh-pages</span></div>
+                                    <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#f9509e8</div>
-                                        <div class="message">Updates</div>
+                                        <div class="sha">#03eca5e</div>
+                                        <div class="message">python day 2</div>
                                     </div>
                                 </div>
                             </section>
