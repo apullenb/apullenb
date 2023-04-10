@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="359" class="">
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="376" class="">
     <defs>
         <style/>
     </defs>
@@ -22,15 +22,19 @@
                                         <path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"/>
                                     </svg>
                                     <div class="content">
-                                        Pushed 1 commit in
-                                        <span class="repo">apullenb/number-game</span>
+                                        Pushed 2 commits in
+                                        <span class="repo">apullenb/dojo-survey</span>
                                     </div>
                                 </div>
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#a24956e</div>
-                                        <div class="message">add logic for game</div>
+                                        <div class="sha">#ee36196</div>
+                                        <div class="message">add style</div>
+                                    </div>
+                                    <div class="commit">
+                                        <div class="sha">#634922e</div>
+                                        <div class="message">install flask</div>
                                     </div>
                                 </div>
                             </section>
@@ -43,14 +47,14 @@
                                     </svg>
                                     <div class="content">
                                         Pushed 1 commit in
-                                        <span class="repo">apullenb/number-game</span>
+                                        <span class="repo">apullenb/dojo-survey</span>
                                     </div>
                                 </div>
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#90930ae</div>
-                                        <div class="message">set up game</div>
+                                        <div class="sha">#6965ae9</div>
+                                        <div class="message">add style</div>
                                     </div>
                                 </div>
                             </section>
@@ -63,14 +67,14 @@
                                     </svg>
                                     <div class="content">
                                         Pushed 1 commit in
-                                        <span class="repo">apullenb/number-game</span>
+                                        <span class="repo">apullenb/dojo-survey</span>
                                     </div>
                                 </div>
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#96ae02e</div>
-                                        <div class="message">create template</div>
+                                        <div class="sha">#1298daf</div>
+                                        <div class="message">add templates and routes</div>
                                     </div>
                                 </div>
                             </section>
@@ -83,13 +87,13 @@
                                     </svg>
                                     <div class="content">
                                         Pushed 1 commit in
-                                        <span class="repo">apullenb/number-game</span>
+                                        <span class="repo">apullenb/dojo-survey</span>
                                     </div>
                                 </div>
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#836fb41</div>
+                                        <div class="sha">#298e1a0</div>
                                         <div class="message">create server</div>
                                     </div>
                                 </div>
@@ -106,7 +110,7 @@
                       branch
                                         <span class="code">master</span>
                                         in
-                                        <span class="repo">apullenb/number-game</span>
+                                        <span class="repo">apullenb/dojo-survey</span>
                                     </div>
                                 </div>
                             </section>
@@ -120,7 +124,7 @@
                                     <div class="content">
                                         Created new
                       repository
-                                        <span class="repo">apullenb/number-game</span>
+                                        <span class="repo">apullenb/dojo-survey</span>
                                     </div>
                                 </div>
                             </section>
