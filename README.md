@@ -11,9 +11,6 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="40" width="52" alt="csharp logo"  />
 </div>
 <h2 align="left"> My name is Andrea and I'm a Full Stack Developer!</h2>
-<div align="center">
-  <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo"  />
-</div>
 
 ###
 <div align="center">
@@ -31,16 +28,15 @@
 
 <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" />
 
-###
- 
-
- 
-
-
-
 
 <!--
 <img height="155em" src="https://github-readme-stats.vercel.app/api?username=apullenb&show_icons=true&hide_border=true&&count_private=true&include_all_commits=true" /> [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=apullenb&hide=css,vue,html&langs_count=6&hide_progress=true)](https://github.com/anuraghazra/github-readme-stats) 
+
+<div align="center">
+  <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo"  />
+</div>
+
+
 **apullenb/apullenb** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=59&pause=1000&color=44E0E4&background=FFEED500&center=true&vCenter=true&width=810&height=93&lines=Hello+World!+)](https://git.io/typing-svg) 
