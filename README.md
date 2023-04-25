@@ -1,6 +1,6 @@
 
-![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=59&pause=1000&color=44E0E4&background=FFEED500&center=true&width=350&height=103&lines=Hello+World!+) <img height="290px" src="https://github.com/apullenb/apullenb/blob/main/sticker.png" align="right" />
-
+![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=59&pause=1000&color=44E0E4&background=FFEED500&center=true&width=395&height=83&lines=Hello+World!+) <img height="260px" src="https://github.com/apullenb/apullenb/blob/main/sticker.png" align="right" />
+<h1 align="center"> My name is Andrea and I'm a Full Stack Developer!</h1>
 <div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" width="52" alt="javascript logo"  />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" height="40" width="52" alt="typescript logo"  />
@@ -10,23 +10,16 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" width="52" alt="python logo"  />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="40" width="52" alt="csharp logo"  />
 </div>
-<h2 align="left"> My name is Andrea and I'm a Full Stack Developer!</h2>
-
-###
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="170" alt="stats graph"  />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=320&&hide=css,vue,html&langs_count=7&theme=dracula&hide_border=false" height="170" alt="languages graph"  />
-</div>
-
-###
-
-
-
-###
 
 <br clear="both">
 
-<img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='800px' />
+<div align="left">
+  <img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="160" alt="stats graph"  />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=330&&hide=css,vue,html&langs_count=7&theme=dracula&hide_border=false" height="160" alt="languages graph"  />
+</div>
+
+
+<img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='900px' />
 
 
 <!--
