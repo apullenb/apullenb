@@ -1,12 +1,12 @@
 
 ![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=59&pause=1000&color=44E0E4&background=FFEED500&center=true&width=395&height=83&lines=Hello+World!+) <img height="260px" src="https://github.com/apullenb/apullenb/blob/main/sticker.png" align="right" />
 
-<div align="center">
+<div align="left">
   <img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="160" alt="stats graph"  />
   <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=330&hide=css,vue,html&langs_count=7&theme=dracula&hide_border=false" height="160" alt="languages graph"  />
 </div>
 <br>
-<div align="left"  >
+<div align="center"  >
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="50" width="62" alt="javascript logo"  />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" height="50" width="62" alt="typescript logo"  />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="50" width="62" alt="react logo"  />
@@ -22,6 +22,11 @@
 
 
 <!--
+## About Me
+#### I'm Andrea Pullen, a full stack developer. Although I love learning new languages and technologies, JavaScript and JavaScript frameworks are my favorite.
+
+
+
 <img height="155em" src="https://github-readme-stats.vercel.app/api?username=apullenb&show_icons=true&hide_border=true&&count_private=true&include_all_commits=true" /> [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=apullenb&hide=css,vue,html&langs_count=6&hide_progress=true)](https://github.com/anuraghazra/github-readme-stats) 
 
 <div align="center">
