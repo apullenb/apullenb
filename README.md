@@ -2,7 +2,6 @@
 
 ![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=56&pause=1000&color=44E0E4&background=FFEED500&center=true&width=415&height=78&lines=Hello+World!+) 
 
-<br>
 
 <div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="50" width="62" alt="javascript logo"  />
@@ -14,16 +13,16 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="50" width="62" alt="csharp logo"  />
 </div>
 
-<br>
+##
 
-<div align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" width="365" alt="stats graph"  />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=325&hide=css,vue,html&langs_count=9&theme=dracula&hide_border=false" height="155" alt="languages graph"  />
+<div>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=340&hide=css,vue,html&langs_count=9&theme=dracula&hide_border=false" align="left" >
+    <img src="https://raw.githubusercontent.com/apullenb/apullenb/main/metrics.plugin.isocalendar.fullyear.svg" alt="languages graph" align="right" height="280" />
 </div>
 
-## 
+<br clear="both">
 
-
+##
 
 <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='905px' />
 
@@ -32,7 +31,8 @@
 ## About Me
 #### I'm Andrea Pullen, a full stack developer. Although I love learning new languages and technologies, JavaScript and JavaScript frameworks are my favorite.
 
-
+Pink Stats --v
+<img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=true&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" width="355" alt="stats graph"  />
 
 <img height="155em" src="https://github-readme-stats.vercel.app/api?username=apullenb&show_icons=true&hide_border=true&&count_private=true&include_all_commits=true" /> [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=apullenb&hide=css,vue,html&langs_count=6&hide_progress=true)](https://github.com/anuraghazra/github-readme-stats) 
 
