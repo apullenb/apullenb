@@ -1,4 +1,6 @@
-![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=56&pause=1000&color=44E0E4&background=FFEED500&center=true&width=415&height=78&lines=Hello+World!+) <img height="260px" src="https://github.com/apullenb/apullenb/blob/main/sticker.png" align="right" />
+<img height="260px" src="https://github.com/apullenb/apullenb/blob/main/sticker.png" align="right" />
+
+![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=56&pause=1000&color=44E0E4&background=FFEED500&center=true&width=415&height=78&lines=Hello+World!+) 
 
 <br>
 
