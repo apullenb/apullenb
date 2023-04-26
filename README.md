@@ -16,11 +16,6 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="50" width="62" alt="csharp logo"  />
 </div>
 
-This is a **bold** paragraph with <span style="color: blue">inline styles</span>.
-
-
-## About Me
-#### I'm Andrea Pullen, a full stack developer. Although I love learning new languages and technologies, JavaScript and JavaScript frameworks are my favorite.
 
 
 <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='905px' />
