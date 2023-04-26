@@ -17,19 +17,24 @@
 
 <div>
   <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=340&hide=css,vue,html&langs_count=9&theme=dracula&hide_border=false" align="left" >
-    <img src="https://raw.githubusercontent.com/apullenb/apullenb/main/metrics.plugin.isocalendar.fullyear.svg" alt="languages graph" align="right" height="280" />
+    <img src="https://raw.githubusercontent.com/apullenb/apullenb/main/metrics.plugin.isocalendar.fullyear.svg" alt="languages graph" align="right" height="300" />
 </div>
 
 <br clear="both">
 
-##
+# 👩🏼‍💻 About Me
+I'm Andrea Pullen, a full-stack software developer! While many developers lean more towards the frontend or backend, I find myself somewhere in the middle. For me, the best part of being a developer is creating powerful and efficient APIs, and presenting data in a way that is intuitive and user-friendly. I always love learning and experimenting with new languages and technologies, but JavaScript and JS frameworks will always be my favorite! 💛 <img src="https://media.giphy.com/media/SvFocn0wNMx0iv2rYz/giphy.gif" width="25" >
+
+## 🎬  Currently Working On..
+* Refactoring some of my old project servers to use MongoDB (since heroku is no longer hosting them after removing the free tier, I'm moving to Vercel)
+* Finishing my new webscraping app! 
 
 <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='905px' />
 
 
 <!--
 ## About Me
-#### I'm Andrea Pullen, a full stack developer. Although I love learning new languages and technologies, JavaScript and JavaScript frameworks are my favorite.
+#### Although I love learning new languages and technologies, JavaScript and JavaScript frameworks are my favorite.
 
 Pink Stats --v
 <img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=true&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" width="355" alt="stats graph"  />
