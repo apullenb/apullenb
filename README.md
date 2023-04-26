@@ -15,11 +15,11 @@
 
 <div align="left">
   <img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="160" alt="stats graph"  />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=330&&hide=css,vue,html&langs_count=7&theme=dracula&hide_border=false" height="160" alt="languages graph"  />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=true&layout=compact&card_width=330&&hide=css,vue,html&langs_count=7&theme=dracula&hide_border=false" height="160" alt="languages graph"  />
 </div>
 
 
-<img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='900px' />
+<img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='905px' />
 
 
 <!--
