@@ -29,8 +29,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#4faa535</div>
-                                        <div class="message">add products router</div>
+                                        <div class="sha">#33e2fad</div>
+                                        <div class="message">Update ReadMe.md</div>
                                     </div>
                                 </div>
                             </section>
@@ -49,8 +49,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#bbb77a2</div>
-                                        <div class="message">update migrations</div>
+                                        <div class="sha">#39d673e</div>
+                                        <div class="message">update routes</div>
                                     </div>
                                 </div>
                             </section>
@@ -69,8 +69,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#c94c21a</div>
-                                        <div class="message">add user routes</div>
+                                        <div class="sha">#6095d78</div>
+                                        <div class="message">update products components &amp; add loading</div>
                                     </div>
                                 </div>
                             </section>
@@ -89,8 +89,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#b718255</div>
-                                        <div class="message">add user routes</div>
+                                        <div class="sha">#6d3c0d3</div>
+                                        <div class="message">update state and user route</div>
                                     </div>
                                 </div>
                             </section>
@@ -109,8 +109,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#804ca68</div>
-                                        <div class="message">add user routes</div>
+                                        <div class="sha">#9d40f73</div>
+                                        <div class="message">update user route</div>
                                     </div>
                                 </div>
                             </section>
@@ -129,8 +129,8 @@
                                 <div class="details">
                                     <div>on branch <span class="code">master</span></div>
                                     <div class="commit">
-                                        <div class="sha">#05dc868</div>
-                                        <div class="message">build commands</div>
+                                        <div class="sha">#94f5e24</div>
+                                        <div class="message">update edit method</div>
                                     </div>
                                 </div>
                             </section>
