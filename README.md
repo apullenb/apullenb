@@ -16,7 +16,7 @@
 ##
 
 <div>
-  <img src="https://github-readme-stats-olive-delta-39.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=340&hide=dockerfile,scss,makefile,cue,html,go,vue&langs_count=8&theme=dracula&hide_border=false" align="left" >
+  <img src="https://github-readme-stats-olive-delta-39.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=340&hide=dockerfile,scss,css,makefile,cue,html,go,vue&langs_count=8&theme=dracula&hide_border=false" align="left" >
     <img src="https://raw.githubusercontent.com/apullenb/apullenb/main/metrics.plugin.isocalendar.fullyear.svg" alt="languages graph" align="right" height="300" />
 </div>
 
