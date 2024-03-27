@@ -23,11 +23,11 @@
 <br clear="both">
 
 # 👩🏼‍💻 About Me
-I'm Andrea Pullen, a full-stack software developer! While many developers lean more towards the frontend or backend, I find myself somewhere in the middle. For me, the best part of being a developer is creating powerful and efficient APIs, and presenting data in a way that is intuitive and user-friendly. I always love learning and experimenting with new languages and technologies, but JavaScript and JS frameworks will always be my favorite! 💛 <img src="https://media.giphy.com/media/SvFocn0wNMx0iv2rYz/giphy.gif" width="25" >
+I'm Andrea Pullen, a full-stack software developer! For me, the best part of being a developer is creating powerful and efficient APIs, and presenting data in a way that is intuitive and user-friendly. I love learning and experimenting with new languages and technologies, but JavaScript and JS frameworks will always be my favorite! 💛 <img src="https://media.giphy.com/media/SvFocn0wNMx0iv2rYz/giphy.gif" width="25" >
 
 ## 🎬  Currently Working On..
 * Refactoring some of my old projects 
-* Finishing my new webscraping app! 
+* Finishing my new webscraping app 
 
 <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='905px' />
 
