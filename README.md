@@ -1,67 +1,166 @@
-<img height="250px" src="https://github.com/apullenb/apullenb/blob/main/sticker.png" align="right" />
+<p align="center">
+  <img src="./assets/title.svg" alt="Andrea Pullen, full-stack TypeScript developer. Press start." width="100%" />
+</p>
 
-![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=56&pause=1000&color=44E0E4&background=FFEED500&center=true&width=415&height=78&lines=Hello+World!+) 
+<p align="center">
+  <a href="https://github.com/apullenb">
+    <img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=14&pause=1400&color=2DE2E6&center=true&vCenter=true&width=760&height=36&lines=LOADING+PLAYER+1...;BUILDS+FULL-STACK+APPS+IN+TYPESCRIPT;SPECIAL+MOVE%3A+AI+THAT+CHECKS+ITS+WORK;ALWAYS+BUILDING%2C+ALWAYS+LEVELING+UP" alt="Loading player 1. Builds full-stack apps in TypeScript. Special move: AI that checks its work." />
+  </a>
+</p>
 
+<p align="center">
+  <a href="https://www.linkedin.com/in/andrea-pullen/"><img src="https://img.shields.io/badge/CO--OP_MODE-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0B0B1A" alt="LinkedIn" /></a>
+</p>
 
-<div align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="50" width="62" alt="javascript logo"  />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" height="50" width="62" alt="typescript logo"  />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="50" width="62" alt="react logo"  />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="50" width="62" alt="html5 logo"  />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="50" width="62" alt="css3 logo"  />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="50" width="62" alt="python logo"  />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="50" width="62" alt="csharp logo"  />
-</div>
-
-##
-
-<div>
-  <img src="https://github-readme-stats-olive-delta-39.vercel.app/api/top-langs?username=apullenb&locale=en&hide_title=false&layout=compact&card_width=340&hide=dockerfile,shell,r,scss,css,makefile,cue,html,gherkin,smarty,procfile&langs_count=10&theme=dracula&hide_border=false" align="left" >
-    <img src="https://raw.githubusercontent.com/apullenb/apullenb/main/metrics.plugin.isocalendar.fullyear.svg" alt="languages graph" align="right" height="300" />
-</div>
-
-<br clear="both">
-
-
-
-## 🎬  Currently Working On..
-* Refactoring some of my old projects 
-* Finishing my new webscraping app 
-
-<img src="https://raw.githubusercontent.com/apullenb/apullenb/output/snake.svg" alt="Snake animation" width='905px' />
-
-
-<!--
-## About Me
-#### Although I love learning new languages and technologies, JavaScript and JavaScript frameworks are my favorite.
-
-Pink Stats --v
-<img src="https://github-readme-stats.vercel.app/api?username=apullenb&hide_title=true&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" width="355" alt="stats graph"  />
-
-<img height="155em" src="https://github-readme-stats.vercel.app/api?username=apullenb&show_icons=true&hide_border=true&&count_private=true&include_all_commits=true" /> [![Top Langs](https://github-readme-stats-olive-delta-39.vercel.app/api/top-langs/?username=apullenb&hide=css,vue,html&langs_count=6&hide_progress=true)](https://github.com/anuraghazra/github-readme-stats) 
+## <img src="./assets/banner-player.svg" alt="Player select" width="100%" />
 
 <div align="center">
-  <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo"  />
+
+<table>
+  <tr><td>🕹️ <b>PLAYER 1</b></td><td>Andrea Pullen</td></tr>
+  <tr><td>🧙 <b>CLASS</b></td><td>Full-stack developer: React and Next.js up front, Node and Postgres behind</td></tr>
+  <tr><td>⚡ <b>SPECIAL MOVE</b></td><td>AI products where the model drafts and plain, tested code checks every fact</td></tr>
+  <tr><td>🗺️ <b>HOME WORLD</b></td><td>TypeScript, shipped on Vercel</td></tr>
+  <tr><td>🎮 <b>ON GITHUB SINCE</b></td><td>2020</td></tr>
+</table>
+
 </div>
 
+## <img src="./assets/banner-items.svg" alt="Items and power-ups: tech stack" width="100%" />
 
-**apullenb/apullenb** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<table>
+  <tr>
+    <td>🗡️ <b>LANGUAGES</b></td>
+    <td><img src="https://skillicons.dev/icons?i=ts,js,py,cs,html,css&theme=dark" alt="TypeScript, JavaScript, Python, C#, HTML, CSS" /></td>
+  </tr>
+  <tr>
+    <td>🛡️ <b>FRONTEND</b></td>
+    <td><img src="https://skillicons.dev/icons?i=react,nextjs,vue,tailwind&theme=dark" alt="React, Next.js, Vue, Tailwind CSS" /></td>
+  </tr>
+  <tr>
+    <td>💾 <b>BACKEND &amp; DATA</b></td>
+    <td><img src="https://skillicons.dev/icons?i=nodejs,express,postgres&theme=dark" alt="Node.js, Express, PostgreSQL" /> &nbsp;
+      <img src="https://img.shields.io/badge/Drizzle_ORM-C5F74F?style=flat-square&logo=drizzle&logoColor=black" alt="Drizzle ORM" />
+      <img src="https://img.shields.io/badge/Neon-00E599?style=flat-square&logo=neon&logoColor=black" alt="Neon" /></td>
+  </tr>
+  <tr>
+    <td>🧪 <b>TESTING &amp; SHIPPING</b></td>
+    <td><img src="https://skillicons.dev/icons?i=vitest,githubactions,vercel,git&theme=dark" alt="Vitest, GitHub Actions, Vercel, Git" /> &nbsp;
+      <img src="https://img.shields.io/badge/Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white" alt="Playwright" /></td>
+  </tr>
+  <tr>
+    <td>🔮 <b>AI MAGIC</b></td>
+    <td><img src="https://img.shields.io/badge/Meta_Muse_Spark_%2B_Muse_Image-0866FF?style=flat-square&logo=meta&logoColor=white" alt="Meta Muse Spark and Muse Image" />
+      <img src="https://img.shields.io/badge/OpenAI--compatible_APIs-412991?style=flat-square" alt="OpenAI-compatible APIs" />
+      <img src="https://img.shields.io/badge/Zod_structured_output-3E67B1?style=flat-square&logo=zod&logoColor=white" alt="Zod structured output" /></td>
+  </tr>
+</table>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Righteous&size=59&pause=1000&color=44E0E4&background=FFEED500&center=true&vCenter=true&width=810&height=93&lines=Hello+World!+)](https://git.io/typing-svg) 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=apullenb&hide=css,vue,html&langs_count=8)](https://github.com/anuraghazra/github-readme-stats)
-![Jokes Card](https://readme-jokes.vercel.app/api)
+## <img src="./assets/banner-scores.svg" alt="Player stats" width="100%" />
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=apullenb&show_icons=true&hide_border=true&&count_private=true&include_all_commits=true" />
+<p align="center">
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/scoreboard.svg" alt="High scores: level, contributions, commits, pull requests, days played, best day, streaks and repos, with XP by year" width="100%" />
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/weapons.svg" alt="Weapons of choice: the languages used across my repos" width="100%" />
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/achievements.svg" alt="Achievements unlocked from my GitHub activity" width="100%" />
+</p>
+
+<a name="play"></a>
+
+## <img src="./assets/banner-play.svg" alt="Your turn: play tic-tac-toe" width="100%" />
+
+<p align="center"><b>Beat the CPU at tic-tac-toe, right here on my profile.</b><br />
+<sub>No sign-in needed: every square is a link, and the CPU answers instantly.</sub></p>
+
+<!-- TTT:START -->
+<div align="center">
+
+<table>
+  <tr><td><a href="play/X---O----.md"><img src="./assets/ttt-1.svg" width="88" alt="Play square 1" /></a></td><td><a href="play/-X--O----.md"><img src="./assets/ttt-2.svg" width="88" alt="Play square 2" /></a></td><td><a href="play/--X-O----.md"><img src="./assets/ttt-3.svg" width="88" alt="Play square 3" /></a></td></tr>
+  <tr><td><a href="play/---XO----.md"><img src="./assets/ttt-4.svg" width="88" alt="Play square 4" /></a></td><td><a href="play/O---X----.md"><img src="./assets/ttt-5.svg" width="88" alt="Play square 5" /></a></td><td><a href="play/----OX---.md"><img src="./assets/ttt-6.svg" width="88" alt="Play square 6" /></a></td></tr>
+  <tr><td><a href="play/----O-X--.md"><img src="./assets/ttt-7.svg" width="88" alt="Play square 7" /></a></td><td><a href="play/----O--X-.md"><img src="./assets/ttt-8.svg" width="88" alt="Play square 8" /></a></td><td><a href="play/----O---X.md"><img src="./assets/ttt-9.svg" width="88" alt="Play square 9" /></a></td></tr>
+</table>
+
+**YOUR TURN.** You are **X**. Click a numbered square. The CPU answers instantly.
+
+</div>
+<!-- TTT:END -->
+
+## <img src="./assets/banner-arcade.svg" alt="Arcade: my contributions as games" width="100%" />
+
+<p align="center"><b>Every square is a day of my commits, turned into a game level.</b></p>
+
+<details open>
+  <summary><b>🟡 PAC-MAN</b></summary>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/apullenb/apullenb/output/pacman-contribution-graph-dark.svg" />
+    <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/pacman-contribution-graph.svg" alt="Pac-Man eating my contribution graph" width="100%" />
+  </picture>
+</details>
+
+<details>
+  <summary><b>🚀 GALAGA</b></summary>
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/galaga-contribution-graph.svg" alt="Galaga ship shooting my contribution graph" width="100%" />
+</details>
+
+<details>
+  <summary><b>🟪 TETRIS</b></summary>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/apullenb/apullenb/output/tetris-contribution-graph-dark.svg" />
+    <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/tetris-contribution-graph.svg" alt="Tetris pieces clearing my contribution graph" width="100%" />
+  </picture>
+</details>
+
+<details>
+  <summary><b>🧱 BREAKOUT</b></summary>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/apullenb/apullenb/output/breakout-contribution-graph-dark.svg" />
+    <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/breakout-contribution-graph.svg" alt="Breakout ball breaking my contribution graph" width="100%" />
+  </picture>
+</details>
+
+<details>
+  <summary><b>⬆️ ⬆️ ⬇️ ⬇️ ⬅️ ➡️ ⬅️ ➡️ 🅱️ 🅰️</b> <sub>(secret cabinets)</sub></summary>
+  <br />
+  <p align="center"><b>CHEAT CODE ACCEPTED · 3 BONUS CABINETS UNLOCKED</b></p>
+  <details>
+    <summary><b>🫧 PUZZLE BOBBLE</b></summary>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/apullenb/apullenb/output/puzzle-bobble-contribution-graph-dark.svg" />
+      <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/puzzle-bobble-contribution-graph.svg" alt="Bubbles popping my contribution graph" width="100%" />
+    </picture>
+  </details>
+  <details>
+    <summary><b>💣 BOMBERMAN</b></summary>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/apullenb/apullenb/output/bomberman-contribution-graph-dark.svg" />
+      <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/bomberman-contribution-graph.svg" alt="Bombs clearing my contribution graph" width="100%" />
+    </picture>
+  </details>
+  <details>
+    <summary><b>🚩 MINESWEEPER</b></summary>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/apullenb/apullenb/output/minesweeper-contribution-graph-dark.svg" />
+      <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/minesweeper-contribution-graph.svg" alt="Minesweeper board made from my contribution graph" width="100%" />
+    </picture>
+  </details>
+</details>
+
+## <img src="./assets/banner-quests.svg" alt="Quest log: currently working on" width="100%" />
+
+| Status | Quest | Objective |
+| :---: | --- | --- |
+| 🟢 **ACTIVE** | **Trustworthy AI** | Ship AI features people can rely on: the model drafts, deterministic tested code checks every fact, and a person approves before anything goes out |
+| 🟢 **ACTIVE** | **Modern full stack** | Next.js 16 with Cache Components, React 19, and Drizzle on serverless Postgres, deployed on Vercel |
+| 🟡 **TRAINING** | **Multimodal AI** | Image generation and vision models working inside real product flows, not just demos |
+| 🔵 **GRINDING XP** | **Test coverage** | Fast Vitest suites and Playwright end-to-end runs on every change |
 
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=12&pause=900&color=FF3864&center=true&vCenter=true&width=600&height=30&lines=GAME+OVER%3F+CONTINUE%3F+9...+8...+7...;THANKS+FOR+PLAYING!" alt="Game over? Continue? Thanks for playing!" />
+</p>
