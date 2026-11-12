@@ -21,6 +21,9 @@ async function gql(query, variables) {
 const base = await gql(
   `query($login:String!){user(login:$login){createdAt
     pullRequests{totalCount}
+    mergedPRs:pullRequests(states:MERGED){totalCount}
+    openPRs:pullRequests(states:OPEN){totalCount}
+    closedPRs:pullRequests(states:CLOSED){totalCount}
     repositories(ownerAffiliations:OWNER,first:100,isFork:false){totalCount nodes{stargazerCount primaryLanguage{name} languages(first:10,orderBy:{field:SIZE,direction:DESC}){edges{size node{name color}}}}}
     contributionsCollection{contributionYears}}}`,
   { login: user },
@@ -115,89 +118,110 @@ ${yearRows}
 writeFileSync(out, svg);
 console.log(`wrote ${out}`);
 
-const cardWidth = 350;
-const cardHeight = 176;
-function statCard({ file, label, value, caption, accent, darkAccent, description, art }) {
-  const markup = `<svg xmlns="http://www.w3.org/2000/svg" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}" role="img" aria-labelledby="title desc">
-<title id="title">${value} ${label}</title>
-<desc id="desc">${description}</desc>
+const chartWidth = 350;
+const chartHeight = 182;
+function diagram({ file, label, summary, description, art }) {
+  const markup = `<svg xmlns="http://www.w3.org/2000/svg" width="${chartWidth}" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}" role="img" aria-labelledby="title desc">
+<title id="title">${esc(label)}. ${esc(summary)}</title>
+<desc id="desc">${esc(description)}</desc>
 <style>
-svg{--ink:#20213a;--muted:#53566f;--surface:#f8f8ff;--border:#dedff0;--accent:${accent};color:var(--accent)}
-text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-.label{fill:var(--muted);font-size:13px;font-weight:700;letter-spacing:1.4px}
-.value{fill:var(--ink);font-size:41px;font-weight:750;letter-spacing:-1.8px}
-.caption{fill:var(--muted);font-size:13px}
-.axis{fill:var(--muted);font-size:9px}
-@media(prefers-color-scheme:dark){svg{--ink:#f2efff;--muted:#bcc1da;--surface:#16192a;--border:#353a52;--accent:${darkAccent}}}
+svg{--ink:#172033;--muted:#526078;--rule:#cbd5e1;--bar:#2456a6;--soft:#dce7f6}
+text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-variant-numeric:tabular-nums}
+.title{font-size:15px;font-weight:700;fill:var(--ink)}
+.label,.summary{font-size:11px;fill:var(--muted)}
+.count{font-size:11px;font-weight:650;fill:var(--ink)}
+.rule{stroke:var(--rule)}
+.bar{fill:var(--bar)}
+.empty{fill:var(--soft)}
+@media(prefers-color-scheme:dark){svg{--ink:#edf2fb;--muted:#aebdd4;--rule:#38465d;--bar:#82adf7;--soft:#263752}}
 </style>
-<defs><radialGradient id="glow"><stop stop-color="currentColor" stop-opacity=".19"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient></defs>
-<rect x=".5" y=".5" width="349" height="175" rx="16" fill="var(--surface)" stroke="var(--border)"/>
-<ellipse cx="260" cy="88" rx="87" ry="81" fill="url(#glow)"/>
-<rect x="20" y="31" width="15" height="3" rx="1.5" fill="currentColor"/>
-<text x="43" y="37" class="label">${label.toUpperCase()}</text>
-<text x="20" y="96" class="value">${value}</text>
-<text x="20" y="127" class="caption">${caption}</text>
+<text x="8" y="22" class="title">${esc(label)}</text>
+<text x="342" y="22" text-anchor="end" class="summary">${esc(summary)}</text>
+<path d="M8 33H342" class="rule"/>
 ${art}
 </svg>`;
   writeFileSync(join(dirname(out), file), markup);
 }
 
-const recentYears = perYear.slice(-8);
-const peak = Math.max(1, ...recentYears.map(({ total }) => total));
-const yearlyBars = recentYears.map(({ year, total }, i) => {
-  const x = 180 + i * (145 / recentYears.length);
-  const height = (71 * total / peak).toFixed(1);
-  return `<rect x="${x.toFixed(1)}" y="${(126 - height).toFixed(1)}" width="12" height="${height}" rx="4" fill="currentColor" opacity="${i === recentYears.length - 1 ? 1 : .53}"/>
-<text x="${(x + 6).toFixed(1)}" y="144" class="axis" text-anchor="middle">’${String(year).slice(-2)}</text>`;
+const chartYears = perYear.slice(-8);
+const peak = Math.max(1, ...chartYears.map(({ total }) => total));
+const columns = chartYears.map(({ year, total }, i) => {
+  const x = 12 + i * (332 / chartYears.length);
+  const height = Math.round(75 * total / peak);
+  return `<rect x="${x.toFixed(1)}" y="${142 - height}" width="24" height="${height}" class="bar" opacity="${i === chartYears.length - 1 ? 1 : .68}"/>
+<text x="${(x + 12).toFixed(1)}" y="${135 - height}" class="count" text-anchor="middle">${fmt(total)}</text>
+<text x="${(x + 12).toFixed(1)}" y="158" class="label" text-anchor="middle">${year}</text>`;
 }).join('\n');
-statCard({
-  file: 'stats-contributions.svg', label: 'Contributions', value: fmt(xp), caption: 'Across all years',
-  accent: '#6543c5', darkAccent: '#af98ff',
-  description: `Contributions by year: ${recentYears.map(({ year, total }) => `${year}: ${fmt(total)}`).join(', ')}.`,
-  art: `<path d="M175 127H327" stroke="currentColor" opacity=".3"/>${yearlyBars}`,
+diagram({
+  file: 'contributions-by-year.svg', label: 'Contributions by year', summary: `${fmt(xp)} total`,
+  description: chartYears.map(({ year, total }) => `${year}: ${fmt(total)}`).join(', ') + '. Latest year is year to date.',
+  art: `<path d="M8 142H342" class="rule"/>${columns}<text x="8" y="177" class="label">Latest year is year to date</text>`,
 });
 
 const now = new Date(`${today}T00:00:00Z`);
-const firstDay = new Date(now);
-firstDay.setUTCDate(firstDay.getUTCDate() - now.getUTCDay() - 13 * 7);
+const start = new Date(now);
+start.setUTCDate(start.getUTCDate() - now.getUTCDay() - 25 * 7);
 const countsByDate = new Map(past.map(({ date, contributionCount }) => [date, contributionCount]));
-const dots = [];
-let recentActive = 0;
-for (const day = new Date(firstDay); day <= now; day.setUTCDate(day.getUTCDate() + 1)) {
-  const active = countsByDate.get(day.toISOString().slice(0, 10)) > 0;
-  recentActive += Number(active);
-  const i = dots.length;
-  dots.push(`<circle cx="${176 + Math.floor(i / 7) * 11}" cy="${57 + (i % 7) * 11}" r="3.4" fill="currentColor" opacity="${active ? 1 : .19}"/>`);
+const calendarCells = [];
+const monthLabels = [];
+let previousMonth;
+let windowActiveDays = 0;
+for (const day = new Date(start); day <= now; day.setUTCDate(day.getUTCDate() + 1)) {
+  const i = calendarCells.length;
+  const x = 35 + Math.floor(i / 7) * 11.8;
+  const y = 60 + (i % 7) * 12;
+  const count = countsByDate.get(day.toISOString().slice(0, 10)) ?? 0;
+  windowActiveDays += Number(count > 0);
+  const opacity = count >= 20 ? 1 : count >= 10 ? .75 : count >= 5 ? .53 : .32;
+  calendarCells.push(`<rect x="${x.toFixed(1)}" y="${y}" width="9" height="9" class="${count ? 'bar' : 'empty'}" opacity="${count ? opacity : 1}"/>`);
+  if (i % 7 === 0 && day.getUTCMonth() !== previousMonth) {
+    previousMonth = day.getUTCMonth();
+    if (x < 317 && (i > 0 || day.getUTCDate() <= 21)) monthLabels.push(`<text x="${x.toFixed(1)}" y="53" class="label">${day.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' })}</text>`);
+  }
 }
-statCard({
-  file: 'stats-active-days.svg', label: 'Active days', value: fmt(activeDays), caption: 'Days with activity',
-  accent: '#087b70', darkAccent: '#59dfc4',
-  description: `Contribution calendar for the latest 14 weeks, with ${recentActive} active days in that window.`,
-  art: `${dots.join('')}<text x="247" y="144" class="axis" text-anchor="middle">LAST 14 WEEKS</text>`,
+const legend = [.32, .53, .75, 1].map((opacity, i) => `<rect x="${272 + i * 11}" y="155" width="9" height="9" class="bar" opacity="${opacity}"/>`).join('');
+diagram({
+  file: 'contribution-calendar.svg', label: 'Contribution calendar', summary: `${fmt(activeDays)} active days total`,
+  description: `Daily contributions over the last 26 calendar weeks. ${windowActiveDays} days had contributions. Stronger color indicates more contributions.`,
+  art: `${monthLabels.join('')}${calendarCells.join('')}<text x="8" y="80" class="label">Mon</text><text x="8" y="104" class="label">Wed</text><text x="8" y="128" class="label">Fri</text><text x="8" y="164" class="label">${windowActiveDays} active days in this window</text><text x="245" y="164" class="label">Less</text>${legend}<text x="317" y="164" class="label">More</text>`,
 });
 
-statCard({
-  file: 'stats-pull-requests.svg', label: 'Pull requests', value: fmt(base.user.pullRequests.totalCount), caption: 'Opened on GitHub',
-  accent: '#ad3e64', darkAccent: '#ff91b6',
-  description: 'Total pull requests opened, illustrated with a Git branch and merge.',
-  art: `<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
-<path d="M176 110H320" opacity=".36"/><path d="M194 110C224 110 213 63 246 63H263C291 63 285 110 312 110"/>
-<circle cx="194" cy="110" r="6" fill="var(--surface)"/><circle cx="246" cy="63" r="6" fill="var(--surface)"/>
-<circle cx="269" cy="65" r="4" fill="var(--surface)"/><circle cx="312" cy="110" r="6" fill="var(--surface)"/>
-</g>`,
+function horizontalBars(rows) {
+  const max = Math.max(1, ...rows.map(([, count]) => count));
+  return rows.map(([name, count], i) => {
+    const y = 58 + 22 * i;
+    return `<text x="8" y="${y}" class="label">${esc(name)}</text>
+<rect x="102" y="${y - 9}" width="204" height="9" class="empty"/>
+<rect x="102" y="${y - 9}" width="${(204 * count / max).toFixed(1)}" height="9" class="bar"/>
+<text x="342" y="${y}" text-anchor="end" class="count">${fmt(count)}</text>`;
+  }).join('\n');
+}
+
+const prRows = [
+  ['Merged', base.user.mergedPRs.totalCount],
+  ['Open', base.user.openPRs.totalCount],
+  ['Closed', base.user.closedPRs.totalCount],
+];
+diagram({
+  file: 'pull-requests-by-status.svg', label: 'Pull requests by status', summary: `${fmt(base.user.pullRequests.totalCount)} total`,
+  description: prRows.map(([name, count]) => `${name}: ${count}`).join(', '),
+  art: `${horizontalBars(prRows)}<text x="8" y="137" class="label">Closed counts pull requests that were never merged</text>`,
 });
 
-statCard({
-  file: 'stats-repositories.svg', label: 'Repositories', value: fmt(base.user.repositories.totalCount), caption: 'Owned, excluding forks',
-  accent: '#3159bd', darkAccent: '#91adff',
-  description: 'Owned GitHub repositories, excluding forks, illustrated as a stack of code windows.',
-  art: `<g stroke="currentColor" stroke-width="1.7">
-<rect x="201" y="53" width="121" height="66" rx="8" fill="var(--surface)" opacity=".42"/>
-<rect x="192" y="62" width="121" height="66" rx="8" fill="var(--surface)" opacity=".67"/>
-<rect x="183" y="71" width="121" height="66" rx="8" fill="var(--surface)"/>
-<path d="M183 88H304" opacity=".45"/>
-<path d="m217 102-9 8 9 8m17-19-6 22m17-19 9 8-9 8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-</g><g fill="currentColor"><circle cx="195" cy="80" r="2"/><circle cx="202" cy="80" r="2"/><circle cx="209" cy="80" r="2"/></g>`,
+const languageCounts = new Map();
+for (const repo of repos) {
+  const name = repo.primaryLanguage?.name ?? 'Unclassified';
+  languageCounts.set(name, (languageCounts.get(name) ?? 0) + 1);
+}
+const rankedLanguages = [...languageCounts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const languageRows = rankedLanguages.slice(0, 4);
+if (rankedLanguages.length > 4) languageRows.push(['Other', rankedLanguages.slice(4).reduce((sum, [, count]) => sum + count, 0)]);
+const repoCount = base.user.repositories.totalCount;
+const repoScope = repos.length < repoCount ? `${fmt(repos.length)} of ${fmt(repoCount)} owned repos shown` : 'Owned repositories, excluding forks';
+diagram({
+  file: 'repositories-by-language.svg', label: 'Repositories by primary language', summary: `${fmt(repoCount)} total`,
+  description: `${repoScope}. ${languageRows.map(([name, count]) => `${name}: ${count}`).join(', ')}`,
+  art: `${horizontalBars(languageRows)}<text x="8" y="169" class="label">${repoScope}</text>`,
 });
 
 const ach = [
