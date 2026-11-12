@@ -21,9 +21,6 @@ async function gql(query, variables) {
 const base = await gql(
   `query($login:String!){user(login:$login){createdAt
     pullRequests{totalCount}
-    mergedPRs:pullRequests(states:MERGED){totalCount}
-    openPRs:pullRequests(states:OPEN){totalCount}
-    closedPRs:pullRequests(states:CLOSED){totalCount}
     repositories(ownerAffiliations:OWNER,first:100,isFork:false){totalCount nodes{stargazerCount primaryLanguage{name} languages(first:10,orderBy:{field:SIZE,direction:DESC}){edges{size node{name color}}}}}
     contributionsCollection{contributionYears}}}`,
   { login: user },
@@ -118,129 +115,122 @@ ${yearRows}
 writeFileSync(out, svg);
 console.log(`wrote ${out}`);
 
-const chartWidth = 350;
-const chartHeight = 182;
-function diagram({ file, label, summary, description, art, ink = '#2456a6', nightInk = '#82adf7' }) {
-  const markup = `<svg xmlns="http://www.w3.org/2000/svg" width="${chartWidth}" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}" role="img" aria-labelledby="title desc">
-<title id="title">${esc(label)}. ${esc(summary)}</title>
-<desc id="desc">${esc(description)}</desc>
+function profileGraphic(file, width, height, title, description, art) {
+  const markup = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title desc">
+<title id="title">${esc(title)}</title><desc id="desc">${esc(description)}</desc>
 <style>
-svg{--ink:#172033;--muted:#526078;--rule:#cbd5e1;--bar:${ink};--soft:#dce7f6}
-text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-variant-numeric:tabular-nums}
-.title{font-size:15px;font-weight:700;fill:var(--ink)}
-.label,.summary{font-size:11px;fill:var(--muted)}
-.count{font-size:11px;font-weight:650;fill:var(--ink)}
-.rule{stroke:var(--rule)}
-.bar{fill:var(--bar)}
-.empty{fill:var(--soft)}
-@media(prefers-color-scheme:dark){svg{--ink:#edf2fb;--muted:#aebdd4;--rule:#38465d;--bar:${nightInk};--soft:#263752}}
+text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-variant-numeric:tabular-nums}
+.ink{fill:#f3f0ff}.dim{fill:#a6abc6}.accent{fill:#80edce}.rule{stroke:#2e3652}
 </style>
-<text x="8" y="22" class="title">${esc(label)}</text>
-<text x="342" y="22" text-anchor="end" class="summary">${esc(summary)}</text>
-<path d="M8 33H342" class="rule"/>
+<rect x=".5" y=".5" width="${width - 1}" height="${height - 1}" rx="15" fill="#111424" stroke="#303956"/>
 ${art}
 </svg>`;
   writeFileSync(join(dirname(out), file), markup);
 }
 
-const chartYears = perYear.slice(-8);
-const peak = Math.max(1, ...chartYears.map(({ total }) => total));
-const columns = chartYears.map(({ year, total }, i) => {
-  const x = 11 + i * (332 / chartYears.length);
-  const height = Math.round(76 * total / peak);
-  const top = 142 - height;
-  const roof = Math.min(6, height);
-  const profile = i % 2 ? `v-${roof}h8v${roof}` : `l6 -${roof}h8l6 ${roof}`;
-  const shape = height ? `<path d="M${x} 142V${top + roof}h5${profile}H${x + 30}V142Z" class="bar" opacity="${i === chartYears.length - 1 ? 1 : .77}"/>` : '';
-  const windows = Array.from({ length: Math.max(0, Math.floor((height - 12) / 9)) }, (_, row) => {
-    const y = top + 11 + row * 9;
-    return `<path d="M${x + 6} ${y}h3m4 0h3m4 0h3" stroke="var(--soft)" stroke-width="2" opacity=".86"/>`;
-  }).join('');
-  return `${shape}${windows}<text x="${x + 15}" y="${top - 6}" class="count" text-anchor="middle">${fmt(total)}</text>
-<text x="${x + 15}" y="158" class="label" text-anchor="middle">${year}</text>`;
-}).join('\n');
-diagram({
-  file: 'contribution-skyline.svg', label: 'Contribution skyline', ink: '#414b86', nightInk: '#a9aff0', summary: `${fmt(xp)} total`,
-  description: chartYears.map(({ year, total }) => `${year}: ${fmt(total)}`).join(', ') + '. Latest year is year to date.',
-  art: `<path d="M8 142H342" class="rule"/>${columns}<text x="8" y="177" class="label">Building height shows contributions per year · latest is YTD</text>`,
-});
-
-const now = new Date(`${today}T00:00:00Z`);
-const start = new Date(now);
-start.setUTCDate(start.getUTCDate() - now.getUTCDay() - 25 * 7);
-const countsByDate = new Map(past.map(({ date, contributionCount }) => [date, contributionCount]));
-const calendarCells = [];
-const monthLabels = [];
-let previousMonth;
-let windowActiveDays = 0;
-for (const day = new Date(start); day <= now; day.setUTCDate(day.getUTCDate() + 1)) {
-  const i = calendarCells.length;
-  const x = 35 + Math.floor(i / 7) * 11.8;
-  const y = 60 + (i % 7) * 12;
-  const count = countsByDate.get(day.toISOString().slice(0, 10)) ?? 0;
-  windowActiveDays += Number(count > 0);
-  const opacity = count >= 20 ? 1 : count >= 10 ? .75 : count >= 5 ? .53 : .32;
-  calendarCells.push(`<circle cx="${(x + 4.5).toFixed(1)}" cy="${y + 4.5}" r="3.5" class="${count ? 'bar' : 'empty'}" opacity="${count ? opacity : 1}"/>`);
-  if (i % 7 === 0 && day.getUTCMonth() !== previousMonth) {
-    previousMonth = day.getUTCMonth();
-    if (x < 317 && (i > 0 || day.getUTCDate() <= 21)) monthLabels.push(`<text x="${x.toFixed(1)}" y="53" class="label">${day.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' })}</text>`);
-  }
+const todayUtc = new Date(`${today}T00:00:00Z`);
+const mapStart = new Date(todayUtc);
+mapStart.setUTCDate(mapStart.getUTCDate() - todayUtc.getUTCDay() - 52 * 7);
+const countByDate = new Map(past.map(({ date, contributionCount }) => [date, contributionCount]));
+const tiles3d = [];
+let mapTotal = 0;
+let mapPeak = 0;
+for (const day = new Date(mapStart); day <= todayUtc; day.setUTCDate(day.getUTCDate() + 1)) {
+  const date = day.toISOString().slice(0, 10);
+  const count = countByDate.get(date) ?? 0;
+  const week = Math.floor(tiles3d.length / 7);
+  const weekday = day.getUTCDay();
+  mapTotal += count;
+  mapPeak = Math.max(mapPeak, count);
+  tiles3d.push({ date, count, week, weekday, x: 77 + week * 12.55 - weekday * 8.1, y: 157 + week * 3.3 + weekday * 6.4 });
 }
-const legend = [.32, .53, .75, 1].map((opacity, i) => `<circle cx="${276 + i * 11}" cy="160" r="3.5" class="bar" opacity="${opacity}"/>`).join('');
-diagram({
-  file: 'activity-punch-card.svg', label: 'Activity punch card', ink: '#106f5d', nightInk: '#69d4b5', summary: `${fmt(activeDays)} active days total`,
-  description: `Daily contributions over the last 26 calendar weeks. ${windowActiveDays} days had contributions. Stronger color indicates more contributions.`,
-  art: `${monthLabels.join('')}${calendarCells.join('')}<text x="8" y="80" class="label">Mon</text><text x="8" y="104" class="label">Wed</text><text x="8" y="128" class="label">Fri</text><text x="8" y="164" class="label">${windowActiveDays} active days in this window</text><text x="245" y="164" class="label">Less</text>${legend}<text x="317" y="164" class="label">More</text>`,
-});
 
-const prRows = [
-  ['Merged', base.user.mergedPRs.totalCount],
-  ['Open', base.user.openPRs.totalCount],
-  ['Closed', base.user.closedPRs.totalCount],
-];
-const prsPerStop = Math.max(1, Math.ceil(Math.max(...prRows.map(([, count]) => count)) / 20));
-const tracks = prRows.map(([status, count], i) => {
-  const y = 57 + 31 * i;
-  const stops = Array.from({ length: Math.ceil(count / prsPerStop) }, (_, n) => {
-    const x = 93 + n * 11;
-    if (status === 'Merged') return `<path d="M${x} ${y - 4}l4 4-4 4-4-4Z" class="bar"/>`;
-    if (status === 'Open') return `<circle cx="${x}" cy="${y}" r="3.6" fill="var(--soft)" stroke="var(--bar)" stroke-width="1.5"/>`;
-    return `<path d="M${x - 3} ${y - 3}l6 6m0-6-6 6" stroke="var(--bar)" stroke-width="1.5"/>`;
-  }).join('');
-  return `<text x="8" y="${y + 4}" class="label">${status}</text><path d="M84 ${y}H310" class="rule" stroke-dasharray="2 3"/>${stops}<text x="342" y="${y + 4}" text-anchor="end" class="count">${fmt(count)}</text>`;
+const quarterHues = [259, 282, 321, 175];
+const projectTile = ({ x, y, count, week, date }) => {
+  const level = Math.log1p(count) / Math.log1p(Math.max(1, mapPeak));
+  const h = count ? 5 + 58 * level : 0;
+  const top = y - h;
+  const hue = quarterHues[Math.min(3, Math.floor(week / 13.25))];
+  const points = (offset) => [[x, top + offset], [x + 11.4, top + 3 + offset], [x + 4.1, top + 8.7 + offset], [x - 7.3, top + 5.7 + offset]];
+  const polygon = (coords, fill) => `<polygon points="${coords.map(([a,b]) => `${a.toFixed(1)},${b.toFixed(1)}`).join(' ')}" fill="${fill}"/>`;
+  const upper = points(0);
+  const lower = points(h + 1.9);
+  const fill = (light) => count ? `hsl(${hue},72%,${light}%)` : '#252e4a';
+  return `<g><title>${date} · ${count} contributions</title>${polygon([upper[3], upper[2], lower[2], lower[3]], count ? fill(29 + 10 * level) : '#14192d')}${polygon([upper[2], upper[1], lower[1], lower[2]], count ? fill(43 + 11 * level) : '#1a2139')}${polygon(upper, fill(55 + 22 * level))}</g>`;
+};
+const blocks3d = [...tiles3d].sort((a,b) => a.y - b.y).map(projectTile).join('');
+const monthTicks = [0, 13, 26, 39, 51].map((week) => {
+  const tile = tiles3d[week * 7];
+  if (!tile) return '';
+  const x = tile.x - 48;
+  const y = tile.y + 48;
+  const label = new Date(`${tile.date}T00:00:00Z`).toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
+  return `<path d="M${x} ${y}l-5 5" stroke="#626c8b"/><text x="${x - 6}" y="${y + 16}" class="mono dim" font-size="11" text-anchor="middle">${label}</text>`;
 }).join('');
-diagram({
-  file: 'pull-request-tracks.svg', label: 'Pull request tracks', summary: `${fmt(base.user.pullRequests.totalCount)} total`, ink: '#9a4e24', nightInk: '#efae79',
-  description: prRows.map(([name, count]) => `${name}: ${count}`).join(', '),
-  art: `${tracks}<text x="8" y="158" class="label">${prsPerStop === 1 ? 'One stop per pull request' : `One stop per ${prsPerStop} pull requests, rounded up`}</text>`,
-});
+const mapPeriod = `${tiles3d[0].date} to ${today}`;
+profileGraphic('profile-contribution-terrain.svg', 760, 420, 'Contribution terrain', `${fmt(mapTotal)} GitHub contributions from ${mapPeriod}. Each tile is a day. Taller columns represent more contributions on a logarithmic scale.`, `
+<defs><linearGradient id="edge"><stop stop-color="#a898ff"/><stop offset=".55" stop-color="#f68bca"/><stop offset="1" stop-color="#70ebd4"/></linearGradient></defs>
+<path d="M20 88H740" stroke="url(#edge)" stroke-opacity=".62"/>
+<text x="23" y="47" class="ink" font-size="32" font-weight="720" letter-spacing="-.7">Contribution terrain</text>
+<text x="24" y="71" class="mono dim" font-size="12">${mapPeriod} · 53 calendar weeks</text>
+<text x="736" y="47" text-anchor="end" class="mono accent" font-size="25" font-weight="700">${fmt(mapTotal)}</text>
+<text x="736" y="69" text-anchor="end" class="mono dim" font-size="11">CONTRIBUTIONS</text>
+${blocks3d}${monthTicks}
+<text x="24" y="396" class="mono dim" font-size="11">One tile per day · Height shows activity on a log scale</text>
+<path d="M24 406H736" class="rule"/>
+`);
 
-const languageCounts = new Map();
+const overview = [
+  ['Contributions', fmt(xp)], ['Active days', fmt(activeDays)],
+  ['Longest streak', `${fmt(longest)} days`], ['Pull requests opened', fmt(base.user.pullRequests.totalCount)],
+  ['Repositories owned', fmt(base.user.repositories.totalCount)],
+];
+const portraitRows = ["           ==-::.. .","      .-+-=+:.....::--.","    .-++=-=:..... .....:.","   :+*+---::.   ..  .. .::","  -=#*-*@%#+=-:. ... .:. :."," :+-=+*@@%%%%##+-.... .:..."," .--+-%@%%%%%##*+:..   .....","..:++=+-+###****+: .   .....",":-:-=#*-:##=-::==: .. . .....",".::-+@%#%%*+++-=+- .. .  . .",".--==#*%%***#%#*+-  :. ....",".:=-:#*#*+++*#*+=:. .:. ...",".=+#@*+#+++++*++=:. ..:. ...",":=%@@#+##*****+=-.  . ..  ..",".-##%@@%#*+=---:::. ... .","  :-+#@@#+. .-==--. ...  .","     *@%#*   :===-......","    :@%%#-   .=++-. ...:","    -+#%#.   .=++=. .  .","     .-=+.   .=++=: ."].map((line, i) =>
+  `<text x="16" y="${56 + i * 6.55}" class="mono" fill="#a8b5f6" font-size="7.6" xml:space="preserve" style="white-space:pre">${esc(line)}</text>`,
+).join('');
+const terminalRows = overview.map(([label, value], i) => {
+  const y = 75 + i * 26;
+  return `<text x="154" y="${y}" class="mono dim" font-size="12">${label}</text><text x="349" y="${y}" class="mono ink" font-size="15" text-anchor="end">${value}</text>`;
+}).join('');
+profileGraphic('profile-stats-terminal.svg', 370, 218, 'GitHub stats', 'ASCII portrait of Andrea Pullen. ' + overview.map(([label,value]) => `${label}: ${value}`).join(', '), `
+<path d="M1 42H369M18 190H352" class="rule"/>
+<text x="18" y="27" class="mono accent" font-size="14" font-weight="700">&gt; GitHub stats</text>
+<text x="350" y="27" class="mono dim" font-size="11" text-anchor="end">ALL TIME</text>
+<path d="M140 55V181" class="rule"/>${portraitRows}${terminalRows}<text x="18" y="207" class="mono dim" font-size="10">Repository count excludes forks</text>
+`);
+
+const primaryLanguages = new Map();
 for (const repo of repos) {
   const name = repo.primaryLanguage?.name ?? 'Unclassified';
-  languageCounts.set(name, (languageCounts.get(name) ?? 0) + 1);
+  primaryLanguages.set(name, (primaryLanguages.get(name) ?? 0) + 1);
 }
-const rankedLanguages = [...languageCounts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-const languageRows = rankedLanguages.slice(0, 4);
-if (rankedLanguages.length > 4) languageRows.push(['Other', rankedLanguages.slice(4).reduce((sum, [, count]) => sum + count, 0)]);
-const repoCount = base.user.repositories.totalCount;
-const repoScope = repos.length < repoCount ? `${fmt(repos.length)} of ${fmt(repoCount)} owned repos shown` : 'Owned repos, excluding forks';
-const reposPerBook = Math.max(1, Math.ceil(Math.max(0, ...languageRows.map(([, count]) => count)) / 39));
-const shelves = languageRows.map(([language, count], i) => {
-  const y = 61 + i * 22;
-  const books = Array.from({ length: Math.ceil(count / reposPerBook) }, (_, n) => {
-    const x = 95 + n * 5.5;
-    const h = [12, 9, 14, 11][(n + i) % 4];
-    return `<rect x="${x}" y="${y - h}" width="4" height="${h}" class="bar" opacity="${[.96, .55, .78][n % 3]}"/>`;
-  }).join('');
-  return `<text x="8" y="${y - 2}" class="label">${esc(language)}</text><path d="M93 ${y}H310" class="rule"/>${books}<text x="342" y="${y - 2}" text-anchor="end" class="count">${fmt(count)}</text>`;
+const ranked = [...primaryLanguages].sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const spectrum = ranked.slice(0, 4);
+if (ranked.length > 4) spectrum.push(['Other', ranked.slice(4).reduce((sum,[,count]) => sum + count, 0)]);
+const colors = ['#9f9bff','#67dbc5','#ef91bc','#ffc484','#8097c8'];
+const circumference = 2 * Math.PI * 45;
+let ringOffset = 0;
+const ring = spectrum.map(([, count], i) => {
+  const length = circumference * count / repos.length;
+  const segment = `<circle cx="81" cy="113" r="45" fill="none" stroke="${colors[i]}" stroke-width="14" stroke-dasharray="${Math.max(0,length - 2)} ${circumference}" stroke-dashoffset="${-ringOffset}" transform="rotate(-90 81 113)"/>`;
+  ringOffset += length;
+  return segment;
 }).join('');
-const bookScale = reposPerBook === 1 ? '1 book = 1 repo' : `1 book = ${reposPerBook} repos (rounded up)`;
-diagram({
-  file: 'repository-bookshelf.svg', label: 'Repository bookshelf', ink: '#625181', nightInk: '#c5afe8', summary: `${fmt(repoCount)} total`,
-  description: `${repoScope}. ${languageRows.map(([name, count]) => `${name}: ${count}`).join(', ')}`,
-  art: `${shelves}<text x="8" y="169" class="label">${bookScale} · ${repoScope}</text>`,
-});
+const languageLegend = spectrum.map(([label,count], i) => {
+  const y = 78 + i * 21;
+  return `<rect x="155" y="${y - 8}" width="8" height="8" rx="2" fill="${colors[i]}"/><text x="172" y="${y}" class="mono dim" font-size="12">${esc(label)}</text><text x="349" y="${y}" class="mono ink" font-size="12" text-anchor="end">${fmt(count)}</text>`;
+}).join('');
+const repoSample = repos.length < base.user.repositories.totalCount ? `${fmt(repos.length)} repositories sampled` : 'One primary language per owned repo';
+profileGraphic('profile-language-spectrum.svg', 370, 218, 'Language mix', spectrum.map(([label,count]) => `${label}: ${count}`).join(', ') + '. ' + repoSample, `
+<path d="M1 42H369M18 190H352" class="rule"/>
+<text x="18" y="27" class="mono accent" font-size="14" font-weight="700">&gt; Language mix</text>
+<text x="350" y="27" class="mono dim" font-size="11" text-anchor="end">BY REPOSITORY</text>
+<circle cx="81" cy="113" r="45" fill="none" stroke="#292f49" stroke-width="14"/>${ring}
+<text x="81" y="119" class="mono ink" font-size="21" text-anchor="middle">${fmt(repos.length)}</text>
+<text x="81" y="137" class="mono dim" font-size="10" text-anchor="middle">REPOS</text>
+${languageLegend}<text x="18" y="207" class="mono dim" font-size="10">${repoSample}</text>
+`);
 
 const ach = [
   ['VETERAN', `${yearsPlayed}+ YEARS ON GITHUB`, yearsPlayed >= 5],
