@@ -8,9 +8,15 @@ I build web apps with React, Next.js, Node.js, and PostgreSQL. I’m especially 
 
 ## GitHub activity
 
-<a href="https://github.com/apullenb#contribution-activity">
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/scoreboard.svg" alt="GitHub activity dashboard with contributions, active days, pull requests, repositories, and contributions by year" width="720" />
-</a>
+<p>
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-contributions.svg" alt="Total contributions and a bar chart by year" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-active-days.svg" alt="Total active days and a 14-week activity heatmap" width="350" />
+</p>
+
+<p>
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-pull-requests.svg" alt="Total pull requests opened, with a Git branch illustration" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-repositories.svg" alt="Owned repositories excluding forks, with a stack of code windows" width="350" />
+</p>
 
 ## Pac-Man contribution map
 
