@@ -1,4 +1,4 @@
-// Arcade high-score board from live GitHub numbers.
+// Profile graphics from GitHub activity.
 // Usage: GITHUB_TOKEN=... node scoreboard.mjs <user> <scores.svg> <achievements.svg> <weapons.svg>
 import { readFileSync, writeFileSync } from 'node:fs';
 
@@ -46,106 +46,71 @@ const today = new Date().toISOString().slice(0, 10);
 const past = days.filter((d) => d.date <= today);
 let longest = 0, run = 0;
 for (const d of past) { run = d.contributionCount ? run + 1 : 0; longest = Math.max(longest, run); }
-let current = 0;
-for (let i = past.length - 1; i >= 0; i--) {
-  if (past[i].contributionCount) current++;
-  else if (i === past.length - 1) continue; // today may not have commits yet
-  else break;
-}
 const bestDay = Math.max(0, ...past.map((d) => d.contributionCount));
 const activeDays = past.filter((d) => d.contributionCount).length;
 
 const fmt = (n) => n.toLocaleString('en-US');
 const xp = perYear.reduce((s, y) => s + y.total, 0);
-// Level n needs 5*n^2 XP
-const level = Math.floor(Math.sqrt(xp / 5));
-const lvlFrom = 5 * level ** 2, lvlTo = 5 * (level + 1) ** 2;
-const lvlPct = (xp - lvlFrom) / (lvlTo - lvlFrom);
 const repos = base.user.repositories.nodes;
 const languages = new Set(repos.map((r) => r.primaryLanguage?.name).filter(Boolean)).size;
 const starCount = repos.reduce((n, r) => n + r.stargazerCount, 0);
 const activeYears = perYear.filter((y) => y.total > 0).length;
 const yearsPlayed = new Date().getUTCFullYear() - new Date(base.user.createdAt).getUTCFullYear();
 const bestYearCommits = Math.max(0, ...perYear.map((y) => y.commits));
-const scores = [
-  [fmt(xp), 'CONTRIBUTIONS'],
-  [fmt(perYear.reduce((s, y) => s + y.commits, 0)), 'COMMITS'],
-  [fmt(base.user.pullRequests.totalCount), 'PULL REQUESTS'],
-  [fmt(activeDays), 'DAYS PLAYED'],
-  [fmt(bestDay), 'BEST DAY'],
-  [`${fmt(longest)}D`, 'LONGEST STREAK'],
-  [`${fmt(current)}D`, 'CURRENT STREAK'],
-  [fmt(base.user.repositories.totalCount), 'REPOS BUILT'],
-];
-
 const font = readFileSync(new URL('./press-start-2p.woff2', import.meta.url)).toString('base64');
 const C = { bg: '#0B0B1A', y: '#FFD300', c: '#2DE2E6', m: '#FF3864', g: '#39FF14', w: '#F5F5F5', dim: '#8B8BA7' };
-const rankCol = [C.y, C.c, C.m, C.g, C.w, C.y, C.c, C.m];
-const ord = ['1ST', '2ND', '3RD', '4TH', '5TH', '6TH', '7TH', '8TH'];
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-const W = 900, H = 400;
-let rows = '';
-scores.forEach(([score, name], i) => {
-  const y = 128 + i * 30;
-  rows += `<g class="row" style="animation-delay:${0.25 + i * 0.18}s">
-<text x="40" y="${y}" fill="${rankCol[i]}">${ord[i]}</text>
-<text x="300" y="${y}" fill="${C.w}" text-anchor="end">${esc(score)}</text>
-<text x="330" y="${y}" fill="${rankCol[i]}">${esc(name)}</text></g>`;
-});
-
-// XP bars: contributions per year
-const maxYear = Math.max(1, ...perYear.map((y) => y.total));
-const bx = 600, bw = 230;
-let bars = '';
-const shown = perYear.slice(-8);
-shown.forEach((y, i) => {
-  const by = 128 + i * 30 - 12;
-  const cells = Math.max(1, Math.round((y.total / maxYear) * 23));
-  let blocks = '';
-  for (let k = 0; k < 23; k++) {
-    const on = k < cells;
-    blocks += `<rect x="${bx + 52 + k * 10}" y="${by}" width="8" height="12" fill="${on ? (k > 17 ? C.m : k > 11 ? C.y : C.g) : '#1C1C33'}"${on ? ` class="xp" style="animation-delay:${0.4 + i * 0.12 + k * 0.03}s"` : ''}/>`;
-  }
-  bars += `<text x="${bx}" y="${by + 12}" fill="${C.dim}" font-size="11">${y.year}</text>${blocks}`;
-});
-
-const stars = Array.from({ length: 40 }, (_, i) => {
-  const x = (i * 197) % W, y = (i * 89) % H;
-  return `<rect x="${x}" y="${y}" width="2" height="2" fill="${[C.w, C.c, C.y][i % 3]}" class="tw" style="animation-delay:${(i % 7) * 0.4}s"/>`;
-}).join('');
-
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="High scores for ${esc(user)}: ${scores.map(([s, n]) => `${n.toLowerCase()} ${s}`).join(', ')}">
+const stats = [
+  [fmt(xp), 'Contributions'],
+  [fmt(activeDays), 'Active days'],
+  [fmt(base.user.pullRequests.totalCount), 'Pull requests'],
+  [fmt(base.user.repositories.totalCount), 'Repositories'],
+];
+const yearsShown = perYear.slice(-8);
+const maxYear = Math.max(1, ...yearsShown.map(({ total }) => total));
+const height = 199 + yearsShown.length * 28;
+const cards = stats.map(([value, label], i) => {
+  const x = 24 + i * 170;
+  return `<rect x="${x}" y="22" width="162" height="86" rx="11" class="card"/>
+<text x="${x + 14}" y="63" class="value">${value}</text>
+<text x="${x + 14}" y="89" class="label">${label}</text>`;
+}).join('\n');
+const yearRows = yearsShown.map(({ year, total }, i) => {
+  const y = 164 + i * 28;
+  return `<text x="26" y="${y + 11}" class="label">${year}</text>
+<rect x="92" y="${y}" width="510" height="12" rx="6" class="track"/>
+<rect x="92" y="${y}" width="${(510 * total / maxYear).toFixed(1)}" height="12" rx="6" fill="url(#activity)"/>
+<text x="694" y="${y + 11}" text-anchor="end" class="count">${fmt(total)}</text>`;
+}).join('\n');
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="720" height="${height}" viewBox="0 0 720 ${height}" role="img" aria-labelledby="title desc">
+<title id="title">GitHub activity</title>
+<desc id="desc">${stats.map(([value, label]) => `${value} ${label.toLowerCase()}`).join(', ')}. Contributions by year: ${yearsShown.map(({ year, total }) => `${year}: ${fmt(total)}`).join(', ')}.</desc>
 <style>
-@font-face{font-family:'PS2P';src:url(data:font/woff2;base64,${font}) format('woff2');}
-text{font-family:'PS2P',monospace;font-size:14px}
-.row{opacity:0;animation:in .01s steps(1) forwards}
-@keyframes in{to{opacity:1}}
-.xp{opacity:0;animation:in .01s steps(1) forwards}
-.blink{animation:bl 1s steps(1) infinite}
-@keyframes bl{50%{opacity:0}}
-.tw{animation:tw 2.6s steps(2) infinite}
-@keyframes tw{50%{opacity:.1}}
+text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.surface{fill:#f8f9ff;stroke:#d8dbea}
+.card{fill:#fff;stroke:#d8dbea}
+.track{fill:#e6e8f4}
+.value{fill:#26234e;font-size:34px;font-weight:700}
+.heading{fill:#26234e;font-size:19px;font-weight:650}
+.label,.count{fill:#4e526c;font-size:16px}
+.count{font-weight:600}
+.date{fill:#4e526c;font-size:13px}
+@media (prefers-color-scheme:dark){
+  .surface{fill:#141724;stroke:#343a51}
+  .card{fill:#1e2234;stroke:#343a51}
+  .track{fill:#292e44}
+  .value,.heading{fill:#f0edff}
+  .label,.count,.date{fill:#bfc6df}
+}
 </style>
-<defs><pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".25"/></pattern></defs>
-<rect width="${W}" height="${H}" fill="${C.bg}"/>
-${stars}
-<rect x="6" y="6" width="${W - 12}" height="${H - 12}" fill="none" stroke="${C.c}" stroke-width="4"/>
-<text x="${W / 2}" y="48" fill="${C.y}" font-size="24" text-anchor="middle">HIGH SCORES</text>
-<text x="40" y="78" fill="${C.m}" font-size="12">LVL ${level}</text>
-${Array.from({ length: 40 }, (_, k) => `<rect x="${140 + k * 13}" y="66" width="11" height="12" fill="${k < Math.round(lvlPct * 40) ? C.g : '#1C1C33'}"/>`).join('')}
-<text x="${W - 40}" y="78" fill="${C.dim}" font-size="10" text-anchor="end" class="blink">${fmt(lvlTo - xp)} XP TO LVL ${level + 1}</text>
-<text x="40" y="100" fill="${C.dim}" font-size="10">RANK</text>
-<text x="300" y="100" fill="${C.dim}" font-size="10" text-anchor="end">SCORE</text>
-<text x="330" y="100" fill="${C.dim}" font-size="10">STAT</text>
-<text x="${bx}" y="100" fill="${C.dim}" font-size="10">XP BY YEAR</text>
-<line x1="570" y1="92" x2="570" y2="356" stroke="#2A2A4A" stroke-width="2" stroke-dasharray="4 4"/>
-${rows}
-${bars}
-<text x="${W / 2}" y="${H - 22}" fill="${C.dim}" font-size="9" text-anchor="middle">UPDATED ${today} · GITHUB.COM/${esc(user.toUpperCase())}</text>
-<rect width="${W}" height="${H}" fill="url(#scan)"/>
+<defs><linearGradient id="activity"><stop stop-color="#6d53d2"/><stop offset="1" stop-color="#527ee9"/></linearGradient></defs>
+<rect x=".5" y=".5" width="719" height="${height - 1}" rx="17" class="surface"/>
+${cards}
+<text x="26" y="141" class="heading">Contributions by year</text>
+${yearRows}
+<text x="694" y="${height - 19}" text-anchor="end" class="date">Updated ${today}</text>
 </svg>`;
-
 writeFileSync(out, svg);
 console.log(`wrote ${out}`);
 
