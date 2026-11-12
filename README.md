@@ -2,15 +2,17 @@
 
 **Full-stack TypeScript developer**
 
-<img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-build-workflow.svg" width="760" alt="I build full-stack web apps with React, Next.js, Node.js, and PostgreSQL. For AI features, the model drafts, tested code verifies the output, and a person approves it before release." />
+<img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-ai-intro.svg" width="760" alt="I build full-stack TypeScript apps and look for ways AI can make them more useful. I work on features that generate images, interpret visual inputs, and turn model responses into structured data. For outputs that need review, the model drafts, tested code checks the output, and a person approves it." />
 
 [Portfolio repository](https://github.com/apullenb/My-Portfolio) · [LinkedIn](https://www.linkedin.com/in/andrea-pullen/)
 
 ## GitHub activity
 
 <p>
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-terrain.svg" alt="Contribution terrain. A 3D map of the last 53 calendar weeks, with one block per day and height based on the number of GitHub contributions." width="760" />
+  <a href="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-detail.svg"><img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-detail.svg" alt="Contribution terrain. Open the 3D map and hover over a block to see its date, contribution count, and weekly total." width="760" /></a>
 </p>
+
+[Open the contribution map](https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-detail.svg) and hover over a block for day and week totals.
 
 <table>
   <tr>
