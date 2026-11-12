@@ -147,6 +147,9 @@ for (const day = new Date(mapStart); day <= todayUtc; day.setUTCDate(day.getUTCD
   tiles3d.push({ date, count, week, weekday, x: 77 + week * 12.55 - weekday * 8.1, y: 157 + week * 3.3 + weekday * 6.4 });
 }
 
+const weeklyContributions = Array(53).fill(0);
+for (const { week, count } of tiles3d) weeklyContributions[week] += count;
+const dayLabel = new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const quarterHues = [259, 282, 321, 175];
 const projectTile = ({ x, y, count, week, date }) => {
   const level = Math.log1p(count) / Math.log1p(Math.max(1, mapPeak));
@@ -158,7 +161,8 @@ const projectTile = ({ x, y, count, week, date }) => {
   const upper = points(0);
   const lower = points(h + 1.9);
   const fill = (light) => count ? `hsl(${hue},72%,${light}%)` : '#252e4a';
-  return `<g><title>${date} · ${count} contributions</title>${polygon([upper[3], upper[2], lower[2], lower[3]], count ? fill(29 + 10 * level) : '#14192d')}${polygon([upper[2], upper[1], lower[1], lower[2]], count ? fill(43 + 11 * level) : '#1a2139')}${polygon(upper, fill(55 + 22 * level))}</g>`;
+  const label = dayLabel.format(new Date(`${date}T00:00:00Z`));
+  return `<g><title>${label} · ${fmt(count)} ${count === 1 ? 'contribution' : 'contributions'} · ${fmt(weeklyContributions[week])} this week</title>${polygon([upper[3], upper[2], lower[2], lower[3]], count ? fill(29 + 10 * level) : '#14192d')}${polygon([upper[2], upper[1], lower[1], lower[2]], count ? fill(43 + 11 * level) : '#1a2139')}${polygon(upper, fill(55 + 22 * level))}</g>`;
 };
 const blocks3d = [...tiles3d].sort((a,b) => a.y - b.y).map(projectTile).join('');
 const monthTicks = [0, 13, 26, 39, 51].map((week) => {
@@ -170,7 +174,7 @@ const monthTicks = [0, 13, 26, 39, 51].map((week) => {
   return `<path d="M${x} ${y}l-5 5" stroke="#626c8b"/><text x="${x - 6}" y="${y + 16}" class="mono dim" font-size="11" text-anchor="middle">${label}</text>`;
 }).join('');
 const mapPeriod = `${tiles3d[0].date} to ${today}`;
-profileGraphic('profile-contribution-terrain.svg', 760, 420, 'Contribution terrain', `${fmt(mapTotal)} GitHub contributions from ${mapPeriod}. Each tile is a day. Taller columns represent more contributions on a logarithmic scale.`, `
+profileGraphic('profile-contribution-detail.svg', 760, 420, 'Contribution terrain', `${fmt(mapTotal)} GitHub contributions from ${mapPeriod}. Each tile is a day. Taller columns represent more contributions on a logarithmic scale.`, `
 <defs><linearGradient id="edge"><stop stop-color="#a898ff"/><stop offset=".55" stop-color="#f68bca"/><stop offset="1" stop-color="#70ebd4"/></linearGradient></defs>
 <path d="M20 88H740" stroke="url(#edge)" stroke-opacity=".62"/>
 <text x="23" y="47" class="ink" font-size="32" font-weight="720" letter-spacing="-.7">Contribution terrain</text>
@@ -178,7 +182,7 @@ profileGraphic('profile-contribution-terrain.svg', 760, 420, 'Contribution terra
 <text x="736" y="47" text-anchor="end" class="mono accent" font-size="25" font-weight="700">${fmt(mapTotal)}</text>
 <text x="736" y="69" text-anchor="end" class="mono dim" font-size="11">CONTRIBUTIONS</text>
 ${blocks3d}${monthTicks}
-<text x="24" y="396" class="mono dim" font-size="11">One tile per day · Height shows activity on a log scale</text>
+<text x="24" y="396" class="mono dim" font-size="11">One tile per day · Hover for day and week totals</text>
 <path d="M24 406H736" class="rule"/>
 `);
 
@@ -198,24 +202,31 @@ profileGraphic('profile-ascii-large.svg', 430, 465, 'Andrea Pullen in ASCII', 'L
 <g class="mono" font-size="10">${face}</g>
 `);
 
-const intro = 'I build full-stack web apps with React, Next.js, Node.js, and PostgreSQL.';
+const intro = 'I build full-stack TypeScript apps and look for ways AI can make them more useful.';
+const aiWork = [
+  'I work on features that generate images, interpret visual inputs,',
+  'and turn model responses into structured data.',
+];
 const workflowSteps = [
-  ['Draft', 'The model proposes an answer', '#a9a3ff'],
+  ['Draft', 'The model produces an initial result', '#a9a3ff'],
   ['Verify', 'Tested code checks the output', '#80edce'],
   ['Approve', 'A person signs off before release', '#ffc49b'],
 ];
 const workflowArt = workflowSteps.map(([label, detail, color], i) => {
   const x = 23 + i * 244;
-  return `<rect x="${x}" y="110" width="226" height="47" rx="7" fill="#1b2037" stroke="#343d5b"/>
-<text x="${x + 12}" y="129" class="mono" fill="${color}" font-size="13" font-weight="700">${label}</text>
-<text x="${x + 12}" y="146" class="dim" font-size="11">${detail}</text>
-${i < 2 ? `<path d="M${x + 230} 134h10m-4-4 4 4-4 4" fill="none" stroke="#a6abc6"/>` : ''}`;
+  return `<rect x="${x}" y="149" width="226" height="47" rx="7" fill="#1b2037" stroke="#343d5b"/>
+<text x="${x + 12}" y="168" class="mono" fill="${color}" font-size="13" font-weight="700">${label}</text>
+<text x="${x + 12}" y="185" class="dim" font-size="11">${detail}</text>
+${i < 2 ? `<path d="M${x + 230} 173h10m-4-4 4 4-4 4" fill="none" stroke="#a6abc6"/>` : ''}`;
 }).join('');
-profileGraphic('profile-build-workflow.svg', 760, 176, 'What I build', intro + ' For AI features, the model drafts, tested code verifies the output, and a person approves it before release.', `
+const introDescription = [intro, ...aiWork, 'For outputs that need review, the model drafts, tested code checks the output, and a person approves it.'].join(' ');
+profileGraphic('profile-ai-intro.svg', 760, 214, 'What I build', introDescription, `
 <text x="23" y="29" class="mono accent" font-size="13" font-weight="700">$ what-i-build</text>
 <path d="M23 39H737" class="rule"/>
 <text x="23" y="66" class="ink" font-size="17" font-weight="650">${intro}</text>
-<text x="23" y="95" class="mono dim" font-size="11">HOW I BUILD AI FEATURES</text>
+<text x="23" y="90" class="dim" font-size="15">${aiWork[0]}</text>
+<text x="23" y="111" class="dim" font-size="15">${aiWork[1]}</text>
+<text x="23" y="136" class="mono dim" font-size="11">FOR AI OUTPUTS THAT NEED REVIEW</text>
 ${workflowArt}
 `);
 
