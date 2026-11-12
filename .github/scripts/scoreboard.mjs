@@ -174,7 +174,7 @@ const monthTicks = [0, 13, 26, 39, 51].map((week) => {
   return `<path d="M${x} ${y}l-5 5" stroke="#626c8b"/><text x="${x - 6}" y="${y + 16}" class="mono dim" font-size="11" text-anchor="middle">${label}</text>`;
 }).join('');
 const mapPeriod = `${tiles3d[0].date} to ${today}`;
-profileGraphic('profile-contribution-detail.svg', 760, 420, 'Contribution terrain', `${fmt(mapTotal)} GitHub contributions from ${mapPeriod}. Each tile is a day. Taller columns represent more contributions on a logarithmic scale.`, `
+profileGraphic('profile-contribution-map.svg', 760, 420, 'Contribution terrain', `${fmt(mapTotal)} GitHub contributions from ${mapPeriod}. Each tile is a day. Taller columns represent more contributions on a logarithmic scale.`, `
 <defs><linearGradient id="edge"><stop stop-color="#a898ff"/><stop offset=".55" stop-color="#f68bca"/><stop offset="1" stop-color="#70ebd4"/></linearGradient></defs>
 <path d="M20 88H740" stroke="url(#edge)" stroke-opacity=".62"/>
 <text x="23" y="47" class="ink" font-size="32" font-weight="720" letter-spacing="-.7">Contribution terrain</text>
@@ -182,7 +182,7 @@ profileGraphic('profile-contribution-detail.svg', 760, 420, 'Contribution terrai
 <text x="736" y="47" text-anchor="end" class="mono accent" font-size="25" font-weight="700">${fmt(mapTotal)}</text>
 <text x="736" y="69" text-anchor="end" class="mono dim" font-size="11">CONTRIBUTIONS</text>
 ${blocks3d}${monthTicks}
-<text x="24" y="396" class="mono dim" font-size="11">One tile per day · Hover for day and week totals</text>
+<text x="24" y="396" class="mono dim" font-size="11">One tile per day · Taller blocks show more contributions</text>
 <path d="M24 406H736" class="rule"/>
 `);
 
