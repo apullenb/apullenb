@@ -1,6 +1,7 @@
 // Profile graphics from GitHub activity.
 // Usage: GITHUB_TOKEN=... node scoreboard.mjs <user> <scores.svg> <achievements.svg> <weapons.svg>
 import { readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 
 const [user = 'apullenb', out = 'scoreboard.svg', achOut = 'achievements.svg', weaponsOut = 'weapons.svg'] = process.argv.slice(2);
 const token = process.env.GITHUB_TOKEN;
@@ -113,6 +114,91 @@ ${yearRows}
 </svg>`;
 writeFileSync(out, svg);
 console.log(`wrote ${out}`);
+
+const cardWidth = 350;
+const cardHeight = 176;
+function statCard({ file, label, value, caption, accent, darkAccent, description, art }) {
+  const markup = `<svg xmlns="http://www.w3.org/2000/svg" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}" role="img" aria-labelledby="title desc">
+<title id="title">${value} ${label}</title>
+<desc id="desc">${description}</desc>
+<style>
+svg{--ink:#20213a;--muted:#53566f;--surface:#f8f8ff;--border:#dedff0;--accent:${accent};color:var(--accent)}
+text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.label{fill:var(--muted);font-size:13px;font-weight:700;letter-spacing:1.4px}
+.value{fill:var(--ink);font-size:41px;font-weight:750;letter-spacing:-1.8px}
+.caption{fill:var(--muted);font-size:13px}
+.axis{fill:var(--muted);font-size:9px}
+@media(prefers-color-scheme:dark){svg{--ink:#f2efff;--muted:#bcc1da;--surface:#16192a;--border:#353a52;--accent:${darkAccent}}}
+</style>
+<defs><radialGradient id="glow"><stop stop-color="currentColor" stop-opacity=".19"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient></defs>
+<rect x=".5" y=".5" width="349" height="175" rx="16" fill="var(--surface)" stroke="var(--border)"/>
+<ellipse cx="260" cy="88" rx="87" ry="81" fill="url(#glow)"/>
+<rect x="20" y="31" width="15" height="3" rx="1.5" fill="currentColor"/>
+<text x="43" y="37" class="label">${label.toUpperCase()}</text>
+<text x="20" y="96" class="value">${value}</text>
+<text x="20" y="127" class="caption">${caption}</text>
+${art}
+</svg>`;
+  writeFileSync(join(dirname(out), file), markup);
+}
+
+const recentYears = perYear.slice(-8);
+const peak = Math.max(1, ...recentYears.map(({ total }) => total));
+const yearlyBars = recentYears.map(({ year, total }, i) => {
+  const x = 180 + i * (145 / recentYears.length);
+  const height = (71 * total / peak).toFixed(1);
+  return `<rect x="${x.toFixed(1)}" y="${(126 - height).toFixed(1)}" width="12" height="${height}" rx="4" fill="currentColor" opacity="${i === recentYears.length - 1 ? 1 : .53}"/>
+<text x="${(x + 6).toFixed(1)}" y="144" class="axis" text-anchor="middle">’${String(year).slice(-2)}</text>`;
+}).join('\n');
+statCard({
+  file: 'stats-contributions.svg', label: 'Contributions', value: fmt(xp), caption: 'Across all years',
+  accent: '#6543c5', darkAccent: '#af98ff',
+  description: `Contributions by year: ${recentYears.map(({ year, total }) => `${year}: ${fmt(total)}`).join(', ')}.`,
+  art: `<path d="M175 127H327" stroke="currentColor" opacity=".3"/>${yearlyBars}`,
+});
+
+const now = new Date(`${today}T00:00:00Z`);
+const firstDay = new Date(now);
+firstDay.setUTCDate(firstDay.getUTCDate() - now.getUTCDay() - 13 * 7);
+const countsByDate = new Map(past.map(({ date, contributionCount }) => [date, contributionCount]));
+const dots = [];
+let recentActive = 0;
+for (const day = new Date(firstDay); day <= now; day.setUTCDate(day.getUTCDate() + 1)) {
+  const active = countsByDate.get(day.toISOString().slice(0, 10)) > 0;
+  recentActive += Number(active);
+  const i = dots.length;
+  dots.push(`<circle cx="${176 + Math.floor(i / 7) * 11}" cy="${57 + (i % 7) * 11}" r="3.4" fill="currentColor" opacity="${active ? 1 : .19}"/>`);
+}
+statCard({
+  file: 'stats-active-days.svg', label: 'Active days', value: fmt(activeDays), caption: 'Days with activity',
+  accent: '#087b70', darkAccent: '#59dfc4',
+  description: `Contribution calendar for the latest 14 weeks, with ${recentActive} active days in that window.`,
+  art: `${dots.join('')}<text x="247" y="144" class="axis" text-anchor="middle">LAST 14 WEEKS</text>`,
+});
+
+statCard({
+  file: 'stats-pull-requests.svg', label: 'Pull requests', value: fmt(base.user.pullRequests.totalCount), caption: 'Opened on GitHub',
+  accent: '#ad3e64', darkAccent: '#ff91b6',
+  description: 'Total pull requests opened, illustrated with a Git branch and merge.',
+  art: `<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+<path d="M176 110H320" opacity=".36"/><path d="M194 110C224 110 213 63 246 63H263C291 63 285 110 312 110"/>
+<circle cx="194" cy="110" r="6" fill="var(--surface)"/><circle cx="246" cy="63" r="6" fill="var(--surface)"/>
+<circle cx="269" cy="65" r="4" fill="var(--surface)"/><circle cx="312" cy="110" r="6" fill="var(--surface)"/>
+</g>`,
+});
+
+statCard({
+  file: 'stats-repositories.svg', label: 'Repositories', value: fmt(base.user.repositories.totalCount), caption: 'Owned, excluding forks',
+  accent: '#3159bd', darkAccent: '#91adff',
+  description: 'Owned GitHub repositories, excluding forks, illustrated as a stack of code windows.',
+  art: `<g stroke="currentColor" stroke-width="1.7">
+<rect x="201" y="53" width="121" height="66" rx="8" fill="var(--surface)" opacity=".42"/>
+<rect x="192" y="62" width="121" height="66" rx="8" fill="var(--surface)" opacity=".67"/>
+<rect x="183" y="71" width="121" height="66" rx="8" fill="var(--surface)"/>
+<path d="M183 88H304" opacity=".45"/>
+<path d="m217 102-9 8 9 8m17-19-6 22m17-19 9 8-9 8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g fill="currentColor"><circle cx="195" cy="80" r="2"/><circle cx="202" cy="80" r="2"/><circle cx="209" cy="80" r="2"/></g>`,
+});
 
 const ach = [
   ['VETERAN', `${yearsPlayed}+ YEARS ON GITHUB`, yearsPlayed >= 5],
