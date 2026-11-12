@@ -13,6 +13,10 @@ I build web apps with React, Next.js, Node.js, and PostgreSQL. I’m especially 
 </p>
 
 <p>
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-stats-terminal.svg" alt="Terminal-style GitHub stats beside an ASCII portrait of Andrea Pullen. Shows total contributions, active days, longest streak, pull requests opened, and repositories owned." width="370" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-ascii-portrait.svg" alt="ASCII portrait of Andrea Pullen, based on her GitHub avatar" width="250" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-github-stats.svg" alt="GitHub stats with a 12-week activity waveform" width="496" />
+</p>
+
+<p>
   <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-language-spectrum.svg" alt="Language mix of owned repositories, grouped by their primary language." width="370" />
 </p>
