@@ -9,13 +9,13 @@ I build web apps with React, Next.js, Node.js, and PostgreSQL. I’m especially 
 ## GitHub activity
 
 <p>
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-contributions.svg" alt="Total contributions and a bar chart by year" width="350" />
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-active-days.svg" alt="Total active days and a 14-week activity heatmap" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/contribution-skyline.svg" alt="Contribution skyline, with each building’s height showing a year of GitHub contributions" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/activity-punch-card.svg" alt="Activity punch card showing daily contributions over the last 26 calendar weeks" width="350" />
 </p>
 
 <p>
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-pull-requests.svg" alt="Total pull requests opened, with a Git branch illustration" width="350" />
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/stats-repositories.svg" alt="Owned repositories excluding forks, with a stack of code windows" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/pull-request-tracks.svg" alt="Pull request tracks with one stop per pull request, grouped by status" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/repository-bookshelf.svg" alt="Repository bookshelf with books grouped by primary language" width="350" />
 </p>
 
 ## Pac-Man contribution map
