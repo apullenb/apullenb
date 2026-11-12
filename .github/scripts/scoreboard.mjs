@@ -120,12 +120,12 @@ console.log(`wrote ${out}`);
 
 const chartWidth = 350;
 const chartHeight = 182;
-function diagram({ file, label, summary, description, art }) {
+function diagram({ file, label, summary, description, art, ink = '#2456a6', nightInk = '#82adf7' }) {
   const markup = `<svg xmlns="http://www.w3.org/2000/svg" width="${chartWidth}" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}" role="img" aria-labelledby="title desc">
 <title id="title">${esc(label)}. ${esc(summary)}</title>
 <desc id="desc">${esc(description)}</desc>
 <style>
-svg{--ink:#172033;--muted:#526078;--rule:#cbd5e1;--bar:#2456a6;--soft:#dce7f6}
+svg{--ink:#172033;--muted:#526078;--rule:#cbd5e1;--bar:${ink};--soft:#dce7f6}
 text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-variant-numeric:tabular-nums}
 .title{font-size:15px;font-weight:700;fill:var(--ink)}
 .label,.summary{font-size:11px;fill:var(--muted)}
@@ -133,7 +133,7 @@ text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 .rule{stroke:var(--rule)}
 .bar{fill:var(--bar)}
 .empty{fill:var(--soft)}
-@media(prefers-color-scheme:dark){svg{--ink:#edf2fb;--muted:#aebdd4;--rule:#38465d;--bar:#82adf7;--soft:#263752}}
+@media(prefers-color-scheme:dark){svg{--ink:#edf2fb;--muted:#aebdd4;--rule:#38465d;--bar:${nightInk};--soft:#263752}}
 </style>
 <text x="8" y="22" class="title">${esc(label)}</text>
 <text x="342" y="22" text-anchor="end" class="summary">${esc(summary)}</text>
@@ -146,16 +146,23 @@ ${art}
 const chartYears = perYear.slice(-8);
 const peak = Math.max(1, ...chartYears.map(({ total }) => total));
 const columns = chartYears.map(({ year, total }, i) => {
-  const x = 12 + i * (332 / chartYears.length);
-  const height = Math.round(75 * total / peak);
-  return `<rect x="${x.toFixed(1)}" y="${142 - height}" width="24" height="${height}" class="bar" opacity="${i === chartYears.length - 1 ? 1 : .68}"/>
-<text x="${(x + 12).toFixed(1)}" y="${135 - height}" class="count" text-anchor="middle">${fmt(total)}</text>
-<text x="${(x + 12).toFixed(1)}" y="158" class="label" text-anchor="middle">${year}</text>`;
+  const x = 11 + i * (332 / chartYears.length);
+  const height = Math.round(76 * total / peak);
+  const top = 142 - height;
+  const roof = Math.min(6, height);
+  const profile = i % 2 ? `v-${roof}h8v${roof}` : `l6 -${roof}h8l6 ${roof}`;
+  const shape = height ? `<path d="M${x} 142V${top + roof}h5${profile}H${x + 30}V142Z" class="bar" opacity="${i === chartYears.length - 1 ? 1 : .77}"/>` : '';
+  const windows = Array.from({ length: Math.max(0, Math.floor((height - 12) / 9)) }, (_, row) => {
+    const y = top + 11 + row * 9;
+    return `<path d="M${x + 6} ${y}h3m4 0h3m4 0h3" stroke="var(--soft)" stroke-width="2" opacity=".86"/>`;
+  }).join('');
+  return `${shape}${windows}<text x="${x + 15}" y="${top - 6}" class="count" text-anchor="middle">${fmt(total)}</text>
+<text x="${x + 15}" y="158" class="label" text-anchor="middle">${year}</text>`;
 }).join('\n');
 diagram({
-  file: 'contributions-by-year.svg', label: 'Contributions by year', summary: `${fmt(xp)} total`,
+  file: 'contribution-skyline.svg', label: 'Contribution skyline', ink: '#414b86', nightInk: '#a9aff0', summary: `${fmt(xp)} total`,
   description: chartYears.map(({ year, total }) => `${year}: ${fmt(total)}`).join(', ') + '. Latest year is year to date.',
-  art: `<path d="M8 142H342" class="rule"/>${columns}<text x="8" y="177" class="label">Latest year is year to date</text>`,
+  art: `<path d="M8 142H342" class="rule"/>${columns}<text x="8" y="177" class="label">Building height shows contributions per year · latest is YTD</text>`,
 });
 
 const now = new Date(`${today}T00:00:00Z`);
@@ -173,39 +180,39 @@ for (const day = new Date(start); day <= now; day.setUTCDate(day.getUTCDate() + 
   const count = countsByDate.get(day.toISOString().slice(0, 10)) ?? 0;
   windowActiveDays += Number(count > 0);
   const opacity = count >= 20 ? 1 : count >= 10 ? .75 : count >= 5 ? .53 : .32;
-  calendarCells.push(`<rect x="${x.toFixed(1)}" y="${y}" width="9" height="9" class="${count ? 'bar' : 'empty'}" opacity="${count ? opacity : 1}"/>`);
+  calendarCells.push(`<circle cx="${(x + 4.5).toFixed(1)}" cy="${y + 4.5}" r="3.5" class="${count ? 'bar' : 'empty'}" opacity="${count ? opacity : 1}"/>`);
   if (i % 7 === 0 && day.getUTCMonth() !== previousMonth) {
     previousMonth = day.getUTCMonth();
     if (x < 317 && (i > 0 || day.getUTCDate() <= 21)) monthLabels.push(`<text x="${x.toFixed(1)}" y="53" class="label">${day.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' })}</text>`);
   }
 }
-const legend = [.32, .53, .75, 1].map((opacity, i) => `<rect x="${272 + i * 11}" y="155" width="9" height="9" class="bar" opacity="${opacity}"/>`).join('');
+const legend = [.32, .53, .75, 1].map((opacity, i) => `<circle cx="${276 + i * 11}" cy="160" r="3.5" class="bar" opacity="${opacity}"/>`).join('');
 diagram({
-  file: 'contribution-calendar.svg', label: 'Contribution calendar', summary: `${fmt(activeDays)} active days total`,
+  file: 'activity-punch-card.svg', label: 'Activity punch card', ink: '#106f5d', nightInk: '#69d4b5', summary: `${fmt(activeDays)} active days total`,
   description: `Daily contributions over the last 26 calendar weeks. ${windowActiveDays} days had contributions. Stronger color indicates more contributions.`,
   art: `${monthLabels.join('')}${calendarCells.join('')}<text x="8" y="80" class="label">Mon</text><text x="8" y="104" class="label">Wed</text><text x="8" y="128" class="label">Fri</text><text x="8" y="164" class="label">${windowActiveDays} active days in this window</text><text x="245" y="164" class="label">Less</text>${legend}<text x="317" y="164" class="label">More</text>`,
 });
-
-function horizontalBars(rows) {
-  const max = Math.max(1, ...rows.map(([, count]) => count));
-  return rows.map(([name, count], i) => {
-    const y = 58 + 22 * i;
-    return `<text x="8" y="${y}" class="label">${esc(name)}</text>
-<rect x="102" y="${y - 9}" width="204" height="9" class="empty"/>
-<rect x="102" y="${y - 9}" width="${(204 * count / max).toFixed(1)}" height="9" class="bar"/>
-<text x="342" y="${y}" text-anchor="end" class="count">${fmt(count)}</text>`;
-  }).join('\n');
-}
 
 const prRows = [
   ['Merged', base.user.mergedPRs.totalCount],
   ['Open', base.user.openPRs.totalCount],
   ['Closed', base.user.closedPRs.totalCount],
 ];
+const prsPerStop = Math.max(1, Math.ceil(Math.max(...prRows.map(([, count]) => count)) / 20));
+const tracks = prRows.map(([status, count], i) => {
+  const y = 57 + 31 * i;
+  const stops = Array.from({ length: Math.ceil(count / prsPerStop) }, (_, n) => {
+    const x = 93 + n * 11;
+    if (status === 'Merged') return `<path d="M${x} ${y - 4}l4 4-4 4-4-4Z" class="bar"/>`;
+    if (status === 'Open') return `<circle cx="${x}" cy="${y}" r="3.6" fill="var(--soft)" stroke="var(--bar)" stroke-width="1.5"/>`;
+    return `<path d="M${x - 3} ${y - 3}l6 6m0-6-6 6" stroke="var(--bar)" stroke-width="1.5"/>`;
+  }).join('');
+  return `<text x="8" y="${y + 4}" class="label">${status}</text><path d="M84 ${y}H310" class="rule" stroke-dasharray="2 3"/>${stops}<text x="342" y="${y + 4}" text-anchor="end" class="count">${fmt(count)}</text>`;
+}).join('');
 diagram({
-  file: 'pull-requests-by-status.svg', label: 'Pull requests by status', summary: `${fmt(base.user.pullRequests.totalCount)} total`,
+  file: 'pull-request-tracks.svg', label: 'Pull request tracks', summary: `${fmt(base.user.pullRequests.totalCount)} total`, ink: '#9a4e24', nightInk: '#efae79',
   description: prRows.map(([name, count]) => `${name}: ${count}`).join(', '),
-  art: `${horizontalBars(prRows)}<text x="8" y="137" class="label">Closed counts pull requests that were never merged</text>`,
+  art: `${tracks}<text x="8" y="158" class="label">${prsPerStop === 1 ? 'One stop per pull request' : `One stop per ${prsPerStop} pull requests, rounded up`}</text>`,
 });
 
 const languageCounts = new Map();
@@ -217,11 +224,22 @@ const rankedLanguages = [...languageCounts].sort((a, b) => b[1] - a[1] || a[0].l
 const languageRows = rankedLanguages.slice(0, 4);
 if (rankedLanguages.length > 4) languageRows.push(['Other', rankedLanguages.slice(4).reduce((sum, [, count]) => sum + count, 0)]);
 const repoCount = base.user.repositories.totalCount;
-const repoScope = repos.length < repoCount ? `${fmt(repos.length)} of ${fmt(repoCount)} owned repos shown` : 'Owned repositories, excluding forks';
+const repoScope = repos.length < repoCount ? `${fmt(repos.length)} of ${fmt(repoCount)} owned repos shown` : 'Owned repos, excluding forks';
+const reposPerBook = Math.max(1, Math.ceil(Math.max(0, ...languageRows.map(([, count]) => count)) / 39));
+const shelves = languageRows.map(([language, count], i) => {
+  const y = 61 + i * 22;
+  const books = Array.from({ length: Math.ceil(count / reposPerBook) }, (_, n) => {
+    const x = 95 + n * 5.5;
+    const h = [12, 9, 14, 11][(n + i) % 4];
+    return `<rect x="${x}" y="${y - h}" width="4" height="${h}" class="bar" opacity="${[.96, .55, .78][n % 3]}"/>`;
+  }).join('');
+  return `<text x="8" y="${y - 2}" class="label">${esc(language)}</text><path d="M93 ${y}H310" class="rule"/>${books}<text x="342" y="${y - 2}" text-anchor="end" class="count">${fmt(count)}</text>`;
+}).join('');
+const bookScale = reposPerBook === 1 ? '1 book = 1 repo' : `1 book = ${reposPerBook} repos (rounded up)`;
 diagram({
-  file: 'repositories-by-language.svg', label: 'Repositories by primary language', summary: `${fmt(repoCount)} total`,
+  file: 'repository-bookshelf.svg', label: 'Repository bookshelf', ink: '#625181', nightInk: '#c5afe8', summary: `${fmt(repoCount)} total`,
   description: `${repoScope}. ${languageRows.map(([name, count]) => `${name}: ${count}`).join(', ')}`,
-  art: `${horizontalBars(languageRows)}<text x="8" y="169" class="label">${repoScope}</text>`,
+  art: `${shelves}<text x="8" y="169" class="label">${bookScale} · ${repoScope}</text>`,
 });
 
 const ach = [
