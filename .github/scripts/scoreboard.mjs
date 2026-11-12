@@ -2,6 +2,7 @@
 // Usage: GITHUB_TOKEN=... node scoreboard.mjs <user> <scores.svg> <achievements.svg> <weapons.svg>
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { inflateSync } from 'node:zlib';
 
 const [user = 'apullenb', out = 'scoreboard.svg', achOut = 'achievements.svg', weaponsOut = 'weapons.svg'] = process.argv.slice(2);
 const token = process.env.GITHUB_TOKEN;
@@ -186,46 +187,64 @@ const overview = [
   ['Longest streak', `${fmt(longest)} days`], ['Pull requests opened', fmt(base.user.pullRequests.totalCount)],
   ['Repositories owned', fmt(base.user.repositories.totalCount)],
 ];
-const portrait = ["                  :~+~~:::...","              ...:++:.....::.......","           .:~~++oo:.....   .:......","          :~+o~+++:.........  .....  .","        .~o+~~:::..:.........   ....  ..","        ~+++~~~~~~~...    .....  .... ..","       :o+~+o#@%##o~~:..    ....   ...","      .~xo+o@@@%%%###xxo+~.  ....  ....","       :o++@@@%%%%%%####xo+:......   ::.","      .~o:o@@@%%%#%%####xxo+:... . . .:..","      :++:#@@%%###%%####xxoo~..:    . ....","     .~o~o%++o#####%%%###xx+~ .:. .   .....","     .+o~o~~:.o####o+++oooo+~  .:  .   :....","      :+o@#o+::##xo~~::~+o+~~. ..  ..  ..  .","     .~+#@%xxx#%#o+++o:..:++~. ...  .   ..  .","     .++%@%%%@@#xxxxxooooooo~. ....  .  .:.","    .~+~%##x#@%#xxx######xo+~.  .:.  ..  ..","    :~~.oxoo%#xxoo+x####xoo+~.   .:.  .. ...","   .:+: +#ox#xo++oooxxxxxo++:..  .::.  .....","   :~+o%%%#x#xoooxxxooooo+++~..   .::.  .....","  .++x@@#~+%#xoo++++oxxoooo+~.   . .::   .....","  :+#@@%%x:x%xxxxooxxxxooo+:.    .  ...   ....","  :#%#%%@@%x####xxxxoo+++~:...   .    ..   .."," .~xx#x#%%@%#xxxxxo+~~~~:::::.   . ..  ..  ..","  :~+oxx##%%%%#o~. .:~~~+~~:~:   .  .    .  ..","  .:..:+x#@@%%#x+.  .~~~++++~.   .. ..   ..","  .:..  .%@%%#xx~    :~+++++:.  ... .:.   ..","  ..... +@%%%#xo:     :+++++::. .....:.","       :@%%%%#x~      .+oooo~:. .. ...:..","       o#xxxxo+.      .:~~~~~:        .."];
-const asciiRamp = ' .:~+ox#%@';
+const portrait = inflateSync(Buffer.from('eNp1VkuO6zAM2/cUAYJs/DuADQO5UbZe+eyPpOQknTfj+bWdkJIoWva2/bVKKSkVW5+/n6p5zpyrlj//+YOupDZj5ONYrTVC8Dv9Biipttoyn8cTWHjSEcD+AgEAmcwZQ5jNkhEq682vcQSJET+9zyb+pudSasIBX/+DsQogIpBRVSSLpIi1+if1Z46E9cniWUbLVgxRDqwesNUvoERDNGo2XbcV8I4pJF58I2sGrPd4jesKHcl6qknafkG/gypmjj0c57kfxwhdCeCh8hs2fWMB7DHsggKMpfCzMcUFbkveH3HR776gjh5XCDGbUE3Z028EvwMXBo5znD/AY5XemKvQHvoNThXNaa/AK3Gim0Kr1tQ88a/QjFyjRx74etChZ1ZtDZOJzZlveJ1QFyoHS/gVnYUzpjUNr1z0Nxya9RxHR4P6uNel1QmX4r6H7E167VFq3mcPNc7UgpDolRzOb+FbcoJ2E3y+dT/Oiz3K0pv7AngQwe7Urln1looI3gmw/uvc4TJ80W1oYwxViSGT6hWkZbpU688KJhLYpRl+U/TeAw1LK74IPAUxPASoAHt5t86fh0kX1upsoMV1hiYjvxxABeBaxr/2Xdo/bXDvJt8tTD/5RlwExYaopD9Iw7jDXMRiQJDKvWXaUvQlAiTAcEgBGl6HgqIL4VoZiOFl/dWFL4qKsVa3OADjjkf3O9K43MVwqMuXm2WzNLnr4DjF1LgOZsC4+DIprSOgILQ6h0nyRWEHxHWex8Ukrs4FrDfipkj1yWMNUT93uJNjHKSYNZgWBIJHL60SlK39rFlafC612xWaYePc4Ykx2ziWG5YzFkexuVBdXc5wS/DjiXAW7FyXqXITMKUsLxiJ741VD11vJDmHfUAM0Txbm/2JNpO5PT0Tn6j2prmucpelbjTHpcYEbfOpU0VjqSQnURY8BP28IAkNNo1GA4r7rGt38x881XVCLRI/s60sJKTuFI4/HmOw5iVhKErMxW4RqgirrVGlJJKXBQaU8uElwqcgRvZwjquDZCtNJJRmulntR8dWchZJgpe6GKDWYVMbHHVNM3o/riOn+gSUZTR50k3CUcAP56nxAXFi2b5Y5DBzqMYoU1HXVc1WynN3GDaB0Jhmm4ED0F1fV2/sglL433TfzfiHpZQtnotkludko+9jdJJktyHlYDe8dJPw7dZQi8uaX3eXYMava47aWVbulZKTbCTkPDZdQ3uNaSPRfpEafp49LCsT8oR1GoOkbuW5DZEl8haYfP/W+s7EN7E44s1BkuLdQTlWD4ZmcZ+rR+k/iq1hlhxWi/LYij43CswT+bW53e3b8/ehVrY69udYDj2JmS3M1uCeKcV9QfHBXNKdRAz2nO96ZSCHgCFnnbJJjrBpJodu/PUPtSCK2w==', 'base64')).toString('ascii').split('\n');
+const asciiRamp = ' .,:;-~+=*ox%#@';
+const tones = ['#151829','#56658d','#6476a4','#7587b6','#8997c5','#9da9d0','#aeb5d9','#bebce0','#cbc2e4','#dbc9e2','#e4cde1','#ecd3e5','#f3dce8','#f9e7ef','#fff1f4'];
 const face = portrait.map((line, row) => {
-  const chars = [...line].map((char) => {
-    const opacity = .28 + .08 * asciiRamp.indexOf(char);
-    return `<tspan opacity="${opacity.toFixed(2)}">${esc(char)}</tspan>`;
-  }).join('');
-  return `<text x="8" y="${18 + row * 7.85}" xml:space="preserve" style="white-space:pre">${chars}</text>`;
+  const chars = [...line].flatMap((char, col) => char === ' ' ? [] : [`<tspan x="${(12 + col * 5.95).toFixed(1)}" fill="${tones[asciiRamp.indexOf(char)]}">${char}</tspan>`]).join('');
+  return `<text y="${(16 + row * 9.15).toFixed(1)}">${chars}</text>`;
 }).join('');
-profileGraphic('profile-ascii-portrait.svg', 250, 270, 'Andrea Pullen in ASCII', 'Portrait of Andrea Pullen rendered with ASCII characters from her GitHub avatar.', `
-<g class="mono" font-size="8.6" fill="#d9e0ff">${face}</g>
-<text x="125" y="257" class="mono dim" font-size="10" text-anchor="middle">ANDREA PULLEN</text>
+profileGraphic('profile-ascii-large.svg', 430, 465, 'Andrea Pullen in ASCII', 'Large ASCII portrait of Andrea Pullen based on her GitHub avatar.', `
+<g class="mono" font-size="10">${face}</g>
+`);
+
+const intro = 'I build full-stack web apps with React, Next.js, Node.js, and PostgreSQL.';
+const workflowSteps = [
+  ['Draft', 'The model proposes an answer', '#a9a3ff'],
+  ['Verify', 'Tested code checks the output', '#80edce'],
+  ['Approve', 'A person signs off before release', '#ffc49b'],
+];
+const workflowArt = workflowSteps.map(([label, detail, color], i) => {
+  const x = 23 + i * 244;
+  return `<rect x="${x}" y="110" width="226" height="47" rx="7" fill="#1b2037" stroke="#343d5b"/>
+<text x="${x + 12}" y="129" class="mono" fill="${color}" font-size="13" font-weight="700">${label}</text>
+<text x="${x + 12}" y="146" class="dim" font-size="11">${detail}</text>
+${i < 2 ? `<path d="M${x + 230} 134h10m-4-4 4 4-4 4" fill="none" stroke="#a6abc6"/>` : ''}`;
+}).join('');
+profileGraphic('profile-build-workflow.svg', 760, 176, 'What I build', intro + ' For AI features, the model drafts, tested code verifies the output, and a person approves it before release.', `
+<text x="23" y="29" class="mono accent" font-size="13" font-weight="700">$ what-i-build</text>
+<path d="M23 39H737" class="rule"/>
+<text x="23" y="66" class="ink" font-size="17" font-weight="650">${intro}</text>
+<text x="23" y="95" class="mono dim" font-size="11">HOW I BUILD AI FEATURES</text>
+${workflowArt}
 `);
 
 const terminalRows = overview.map(([label, value], i) => {
   const y = 81 + i * 31;
-  return `<text x="19" y="${y}" class="mono dim" font-size="12">${label}</text><text x="263" y="${y}" class="mono ink" font-size="15" text-anchor="end">${value}</text>`;
+  return `<text x="19" y="${y}" class="mono dim" font-size="12">${label}</text><text x="185" y="${y}" class="mono ink" font-size="15" text-anchor="end">${value}</text>`;
 }).join('');
 const weeklyTotals = Array(12).fill(0);
 for (const { week, count } of tiles3d) {
   if (week >= 41) weeklyTotals[week - 41] += count;
 }
 const weeklyPeak = Math.max(1, ...weeklyTotals);
-const wavePoints = weeklyTotals.map((count, index) => [292 + index * 16, 170 - 74 * count / weeklyPeak]);
+const wavePoints = weeklyTotals.map((count, index) => [211 + index * 8, 170 - 74 * count / weeklyPeak]);
 const wave = wavePoints.map(([x, y]) => `${x} ${y.toFixed(1)}`).join(' L');
 const [endX, endY] = wavePoints.at(-1);
 const weeklyTotal = weeklyTotals.reduce((sum, count) => sum + count, 0);
-profileGraphic('profile-github-stats.svg', 496, 270, 'GitHub stats', overview.map(([label, value]) => `${label}: ${value}`).join(', ') + `. ${fmt(weeklyTotal)} contributions over the last 12 calendar weeks.`, `
+profileGraphic('profile-github-stats-compact.svg', 320, 270, 'GitHub stats', overview.map(([label, value]) => `${label}: ${value}`).join(', ') + `. ${fmt(weeklyTotal)} contributions over the last 12 calendar weeks.`, `
 <defs><linearGradient id="signal" x2="0" y2="1"><stop stop-color="#80edce" stop-opacity=".31"/><stop offset="1" stop-color="#80edce" stop-opacity="0"/></linearGradient></defs>
-<path d="M1 44H495M278 63V222M19 235H477" class="rule"/>
+<path d="M1 44H319M198 63V222M19 235H301" class="rule"/>
 <text x="19" y="28" class="mono accent" font-size="14" font-weight="700">&gt; GitHub stats</text>
-<text x="477" y="28" class="mono dim" font-size="11" text-anchor="end">ALL TIME</text>
+<text x="301" y="28" class="mono dim" font-size="11" text-anchor="end">ALL TIME</text>
 ${terminalRows}
-<text x="292" y="81" class="mono dim" font-size="10">LAST 12 WEEKS</text>
-<path d="M292 96H468M292 121H468M292 146H468M292 171H468" class="rule" stroke-dasharray="2 4"/>
-<path d="M${wave} L${endX} 171 H292Z" fill="url(#signal)"/>
+<text x="211" y="81" class="mono dim" font-size="10">12 WEEKS</text>
+<path d="M211 96H299M211 121H299M211 146H299M211 171H299" class="rule" stroke-dasharray="2 4"/>
+<path d="M${wave} L${endX} 171 H211Z" fill="url(#signal)"/>
 <path d="M${wave}" fill="none" stroke="#80edce" stroke-width="2" stroke-linejoin="round"/>
 <circle cx="${endX}" cy="${endY.toFixed(1)}" r="3" fill="#80edce"/>
-<text x="292" y="202" class="mono accent" font-size="17" font-weight="700">${fmt(weeklyTotal)}</text>
-<text x="292" y="220" class="mono dim" font-size="10">CONTRIBUTIONS</text>
+<text x="211" y="202" class="mono accent" font-size="17" font-weight="700">${fmt(weeklyTotal)}</text>
+<text x="211" y="220" class="mono dim" font-size="10">CONTRIBUTIONS</text>
 <text x="19" y="254" class="mono dim" font-size="10">Repository count excludes forks</text>
 `);
 
