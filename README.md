@@ -9,10 +9,8 @@
 ## GitHub activity
 
 <p>
-  <a href="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-detail.svg"><img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-detail.svg" alt="Contribution terrain. Open the 3D map and hover over a block to see its date, contribution count, and weekly total." width="760" /></a>
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-map.svg" alt="3D map of GitHub activity over 53 calendar weeks. Each block is a day, and taller blocks show more contributions." width="760" />
 </p>
-
-[Open the contribution map](https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-detail.svg) and hover over a block for day and week totals.
 
 <table>
   <tr>
