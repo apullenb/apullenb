@@ -9,7 +9,7 @@ I build web apps with React, Next.js, Node.js, and PostgreSQL. I’m especially 
 ## GitHub activity
 
 <a href="https://github.com/apullenb#contribution-activity">
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/scoreboard.svg" alt="GitHub activity dashboard with contributions, active days, pull requests, repositories, and contributions by year" width="720" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/scoreboard.svg?v=2" alt="GitHub activity dashboard with contributions, active days, pull requests, repositories, and contributions by year" width="720" />
 </a>
 
 ## Pac-Man contribution map
