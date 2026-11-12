@@ -9,20 +9,10 @@ I build web apps with React, Next.js, Node.js, and PostgreSQL. I’m especially 
 ## GitHub activity
 
 <p>
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/contribution-skyline.svg" alt="Contribution skyline, with each building’s height showing a year of GitHub contributions" width="350" />
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/activity-punch-card.svg" alt="Activity punch card showing daily contributions over the last 26 calendar weeks" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-contribution-terrain.svg" alt="Contribution terrain. A 3D map of the last 53 calendar weeks, with one block per day and height based on the number of GitHub contributions." width="760" />
 </p>
 
 <p>
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/pull-request-tracks.svg" alt="Pull request tracks with one stop per pull request, grouped by status" width="350" />
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/repository-bookshelf.svg" alt="Repository bookshelf with books grouped by primary language" width="350" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-stats-terminal.svg" alt="Terminal-style GitHub stats beside an ASCII portrait of Andrea Pullen. Shows total contributions, active days, longest streak, pull requests opened, and repositories owned." width="370" />
+  <img src="https://raw.githubusercontent.com/apullenb/apullenb/refs/heads/output/profile-language-spectrum.svg" alt="Language mix of owned repositories, grouped by their primary language." width="370" />
 </p>
-
-## Pac-Man contribution map
-
-Pac-Man plays through my GitHub activity. Each square represents a day of contributions.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/apullenb/apullenb/output/pacman-contribution-graph-dark.svg" />
-  <img src="https://raw.githubusercontent.com/apullenb/apullenb/output/pacman-contribution-graph.svg" alt="Animated Pac-Man game on Andrea’s GitHub contribution calendar" width="720" />
-</picture>
