@@ -186,18 +186,47 @@ const overview = [
   ['Longest streak', `${fmt(longest)} days`], ['Pull requests opened', fmt(base.user.pullRequests.totalCount)],
   ['Repositories owned', fmt(base.user.repositories.totalCount)],
 ];
-const portraitRows = ["           ==-::.. .","      .-+-=+:.....::--.","    .-++=-=:..... .....:.","   :+*+---::.   ..  .. .::","  -=#*-*@%#+=-:. ... .:. :."," :+-=+*@@%%%%##+-.... .:..."," .--+-%@%%%%%##*+:..   .....","..:++=+-+###****+: .   .....",":-:-=#*-:##=-::==: .. . .....",".::-+@%#%%*+++-=+- .. .  . .",".--==#*%%***#%#*+-  :. ....",".:=-:#*#*+++*#*+=:. .:. ...",".=+#@*+#+++++*++=:. ..:. ...",":=%@@#+##*****+=-.  . ..  ..",".-##%@@%#*+=---:::. ... .","  :-+#@@#+. .-==--. ...  .","     *@%#*   :===-......","    :@%%#-   .=++-. ...:","    -+#%#.   .=++=. .  .","     .-=+.   .=++=: ."].map((line, i) =>
-  `<text x="16" y="${56 + i * 6.55}" class="mono" fill="#a8b5f6" font-size="7.6" xml:space="preserve" style="white-space:pre">${esc(line)}</text>`,
-).join('');
-const terminalRows = overview.map(([label, value], i) => {
-  const y = 75 + i * 26;
-  return `<text x="154" y="${y}" class="mono dim" font-size="12">${label}</text><text x="349" y="${y}" class="mono ink" font-size="15" text-anchor="end">${value}</text>`;
+const portrait = ["                  :~+~~:::...","              ...:++:.....::.......","           .:~~++oo:.....   .:......","          :~+o~+++:.........  .....  .","        .~o+~~:::..:.........   ....  ..","        ~+++~~~~~~~...    .....  .... ..","       :o+~+o#@%##o~~:..    ....   ...","      .~xo+o@@@%%%###xxo+~.  ....  ....","       :o++@@@%%%%%%####xo+:......   ::.","      .~o:o@@@%%%#%%####xxo+:... . . .:..","      :++:#@@%%###%%####xxoo~..:    . ....","     .~o~o%++o#####%%%###xx+~ .:. .   .....","     .+o~o~~:.o####o+++oooo+~  .:  .   :....","      :+o@#o+::##xo~~::~+o+~~. ..  ..  ..  .","     .~+#@%xxx#%#o+++o:..:++~. ...  .   ..  .","     .++%@%%%@@#xxxxxooooooo~. ....  .  .:.","    .~+~%##x#@%#xxx######xo+~.  .:.  ..  ..","    :~~.oxoo%#xxoo+x####xoo+~.   .:.  .. ...","   .:+: +#ox#xo++oooxxxxxo++:..  .::.  .....","   :~+o%%%#x#xoooxxxooooo+++~..   .::.  .....","  .++x@@#~+%#xoo++++oxxoooo+~.   . .::   .....","  :+#@@%%x:x%xxxxooxxxxooo+:.    .  ...   ....","  :#%#%%@@%x####xxxxoo+++~:...   .    ..   .."," .~xx#x#%%@%#xxxxxo+~~~~:::::.   . ..  ..  ..","  :~+oxx##%%%%#o~. .:~~~+~~:~:   .  .    .  ..","  .:..:+x#@@%%#x+.  .~~~++++~.   .. ..   ..","  .:..  .%@%%#xx~    :~+++++:.  ... .:.   ..","  ..... +@%%%#xo:     :+++++::. .....:.","       :@%%%%#x~      .+oooo~:. .. ...:..","       o#xxxxo+.      .:~~~~~:        .."];
+const asciiRamp = ' .:~+ox#%@';
+const face = portrait.map((line, row) => {
+  const chars = [...line].map((char) => {
+    const opacity = .28 + .08 * asciiRamp.indexOf(char);
+    return `<tspan opacity="${opacity.toFixed(2)}">${esc(char)}</tspan>`;
+  }).join('');
+  return `<text x="8" y="${18 + row * 7.85}" xml:space="preserve" style="white-space:pre">${chars}</text>`;
 }).join('');
-profileGraphic('profile-stats-terminal.svg', 370, 218, 'GitHub stats', 'ASCII portrait of Andrea Pullen. ' + overview.map(([label,value]) => `${label}: ${value}`).join(', '), `
-<path d="M1 42H369M18 190H352" class="rule"/>
-<text x="18" y="27" class="mono accent" font-size="14" font-weight="700">&gt; GitHub stats</text>
-<text x="350" y="27" class="mono dim" font-size="11" text-anchor="end">ALL TIME</text>
-<path d="M140 55V181" class="rule"/>${portraitRows}${terminalRows}<text x="18" y="207" class="mono dim" font-size="10">Repository count excludes forks</text>
+profileGraphic('profile-ascii-portrait.svg', 250, 270, 'Andrea Pullen in ASCII', 'Portrait of Andrea Pullen rendered with ASCII characters from her GitHub avatar.', `
+<g class="mono" font-size="8.6" fill="#d9e0ff">${face}</g>
+<text x="125" y="257" class="mono dim" font-size="10" text-anchor="middle">ANDREA PULLEN</text>
+`);
+
+const terminalRows = overview.map(([label, value], i) => {
+  const y = 81 + i * 31;
+  return `<text x="19" y="${y}" class="mono dim" font-size="12">${label}</text><text x="263" y="${y}" class="mono ink" font-size="15" text-anchor="end">${value}</text>`;
+}).join('');
+const weeklyTotals = Array(12).fill(0);
+for (const { week, count } of tiles3d) {
+  if (week >= 41) weeklyTotals[week - 41] += count;
+}
+const weeklyPeak = Math.max(1, ...weeklyTotals);
+const wavePoints = weeklyTotals.map((count, index) => [292 + index * 16, 170 - 74 * count / weeklyPeak]);
+const wave = wavePoints.map(([x, y]) => `${x} ${y.toFixed(1)}`).join(' L');
+const [endX, endY] = wavePoints.at(-1);
+const weeklyTotal = weeklyTotals.reduce((sum, count) => sum + count, 0);
+profileGraphic('profile-github-stats.svg', 496, 270, 'GitHub stats', overview.map(([label, value]) => `${label}: ${value}`).join(', ') + `. ${fmt(weeklyTotal)} contributions over the last 12 calendar weeks.`, `
+<defs><linearGradient id="signal" x2="0" y2="1"><stop stop-color="#80edce" stop-opacity=".31"/><stop offset="1" stop-color="#80edce" stop-opacity="0"/></linearGradient></defs>
+<path d="M1 44H495M278 63V222M19 235H477" class="rule"/>
+<text x="19" y="28" class="mono accent" font-size="14" font-weight="700">&gt; GitHub stats</text>
+<text x="477" y="28" class="mono dim" font-size="11" text-anchor="end">ALL TIME</text>
+${terminalRows}
+<text x="292" y="81" class="mono dim" font-size="10">LAST 12 WEEKS</text>
+<path d="M292 96H468M292 121H468M292 146H468M292 171H468" class="rule" stroke-dasharray="2 4"/>
+<path d="M${wave} L${endX} 171 H292Z" fill="url(#signal)"/>
+<path d="M${wave}" fill="none" stroke="#80edce" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="${endX}" cy="${endY.toFixed(1)}" r="3" fill="#80edce"/>
+<text x="292" y="202" class="mono accent" font-size="17" font-weight="700">${fmt(weeklyTotal)}</text>
+<text x="292" y="220" class="mono dim" font-size="10">CONTRIBUTIONS</text>
+<text x="19" y="254" class="mono dim" font-size="10">Repository count excludes forks</text>
 `);
 
 const primaryLanguages = new Map();
