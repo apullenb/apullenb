@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="214" viewBox="0 0 760 214" role="img" aria-labelledby="title desc">
+<title id="title">What I build</title><desc id="desc">I build full-stack TypeScript apps and look for ways AI can make them more useful. I work on features that generate images, interpret visual inputs, and turn model responses into structured data. For outputs that need review, the model drafts, tested code checks the output, and a person approves it.</desc>
+<style>
+text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-variant-numeric:tabular-nums}
+.ink{fill:#f3f0ff}.dim{fill:#a6abc6}.accent{fill:#80edce}.rule{stroke:#2e3652}
+</style>
+<rect x=".5" y=".5" width="759" height="213" rx="15" fill="#111424" stroke="#303956"/>
+
+<text x="23" y="29" class="mono accent" font-size="13" font-weight="700">$ what-i-build</text>
+<path d="M23 39H737" class="rule"/>
+<text x="23" y="66" class="ink" font-size="17" font-weight="650">I build full-stack TypeScript apps and look for ways AI can make them more useful.</text>
+<text x="23" y="90" class="dim" font-size="15">I work on features that generate images, interpret visual inputs,</text>
+<text x="23" y="111" class="dim" font-size="15">and turn model responses into structured data.</text>
+<text x="23" y="136" class="mono dim" font-size="11">FOR AI OUTPUTS THAT NEED REVIEW</text>
+<rect x="23" y="149" width="226" height="47" rx="7" fill="#1b2037" stroke="#343d5b"/>
+<text x="35" y="168" class="mono" fill="#a9a3ff" font-size="13" font-weight="700">Draft</text>
+<text x="35" y="185" class="dim" font-size="11">The model produces an initial result</text>
+<path d="M253 173h10m-4-4 4 4-4 4" fill="none" stroke="#a6abc6"/><rect x="267" y="149" width="226" height="47" rx="7" fill="#1b2037" stroke="#343d5b"/>
+<text x="279" y="168" class="mono" fill="#80edce" font-size="13" font-weight="700">Verify</text>
+<text x="279" y="185" class="dim" font-size="11">Tested code checks the output</text>
+<path d="M497 173h10m-4-4 4 4-4 4" fill="none" stroke="#a6abc6"/><rect x="511" y="149" width="226" height="47" rx="7" fill="#1b2037" stroke="#343d5b"/>
+<text x="523" y="168" class="mono" fill="#ffc49b" font-size="13" font-weight="700">Approve</text>
+<text x="523" y="185" class="dim" font-size="11">A person signs off before release</text>
+
+
+</svg>
